@@ -1,0 +1,47 @@
+
+# ========================================
+# ASCON FPGA Implementations
+# Git ignore rules
+# ========================================
+
+# ModelSim / QuestaSim
+work/
+vsim.wlf
+transcript
+modelsim.ini
+*.wlf
+*.vcd
+*.fst
+
+# Vivado generated directories
+.Xil/
+*.cache/
+*.runs/
+*.sim/
+*.hw/
+*.ip_user_files/
+*.gen/
+
+# Vivado checkpoints
+*.dcp
+
+# Vivado temporary files
+*.jou
+*.log
+*.str
+
+# Python temporary files
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Operating system files
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# Editor temporary files
+*.swp
+*.swo
+*~
