@@ -69,7 +69,7 @@ architecture sim of tb_ascon_decrypt_negative is
     signal done       : std_logic;
 
     constant CLK_PERIOD : time := 10 ns;
-    constant KAT_FILE   : string := "LWC_AEAD_KAT_128_128.txt";
+    constant KAT_FILE   : string := "verification/KAT/LWC_AEAD_KAT_128_128.txt";
 
 
     function hex_value(c : character) return integer is

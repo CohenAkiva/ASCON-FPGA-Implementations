@@ -22,11 +22,12 @@ if {![file exists work]} {
 vmap work work
 
 # Compile in dependency order.
-vcom -2008 ascon_pack.vhd
-vcom -2008 ASCON_ROUND.vhd
-vcom -2008 ASCON_PERMUTATION.vhd
-vcom -2008 ASCON_DECRYPT_TOP_LEVEL.vhd
-vcom -2008 tb_ascon_decrypt_top_level.vhd
+vcom -2008 rtl/common/ascon_pack.vhd
+vcom -2008 rtl/common/ASCON_ROUND.vhd
+vcom -2008 rtl/common/ASCON_PERMUTATION.vhd
+vcom -2008 rtl/decryption/ASCON_DECRYPT_TOP_LEVEL.vhd
+vcom -2008 simulation/decryption/tb_ascon_decrypt_top_level.vhd
+
 
 # Load the selected KAT range.
 vsim -voptargs="+acc" \

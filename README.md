@@ -2,146 +2,127 @@
 
 ## Project Overview
 
-This project focuses on the design, implementation, verification, and evaluation of hardware architectures for the **ASCON authenticated encryption algorithm** using VHDL on multiple FPGA platforms.
+This electrical/computer engineering final project investigates the design, implementation, verification, and evaluation of **ASCON authenticated encryption and decryption** hardware in VHDL. The initial platform is the **Digilent Basys 3 (Xilinx Artix-7)**, with a **Raspberry Pi 5** providing a GPIO-based test and control interface.
 
-The project aims to develop configurable hardware implementations supporting authenticated encryption and decryption, investigate different architectural approaches, and evaluate their performance and resource utilization across FPGA technologies.
-
-The initial development platform is the **Digilent Basys 3**, based on a Xilinx Artix-7 FPGA. Future development is planned to include Intel (Altera) FPGA platforms and potentially additional FPGA families.
+The long-term goal is to compare different hardware architectures and, where practical, different FPGA families and toolchains. **Shared-engine and dual-engine architectural comparisons are planned research directions, not completed results.**
 
 ## Project Objectives
 
-The main objectives of this project are:
+1. Implement ASCON authenticated encryption and decryption in VHDL.
+2. Verify functionality using simulation, testbenches, and known-answer tests (KATs).
+3. Integrate the designs with FPGA board interfaces and external host control.
+4. Measure resource utilization, timing, latency, and hardware behavior.
+5. Explore shared-engine versus separate-engine architectures.
+6. Investigate portability to additional FPGA platforms, including Intel FPGA devices.
 
-1. **Hardware Implementation:** Design and implement ASCON authenticated encryption and decryption in VHDL.
-2. **Functional Verification:** Verify the implementations using simulation, testbenches, and official Known Answer Tests (KATs).
-3. **Architectural Exploration:** Investigate alternative architectures, including a shared cryptographic engine and separate encryption/decryption engines.
-4. **FPGA Integration:** Integrate the ASCON hardware with board-specific interfaces and control logic.
-5. **Performance Evaluation:** Analyze FPGA resource utilization, timing, latency, and throughput.
-6. **Cross-Platform Comparison:** Compare implementations across FPGA platforms and development toolchains.
+## Current Implementations
 
-## Target FPGA Platforms
+| Component | Description | Status |
+|---|---|---|
+| Encryption core | ASCON authenticated encryption and tag generation | Implemented and previously verified |
+| Decryption core | ASCON authenticated decryption and tag verification | Implemented and previously verified |
+| Common permutation logic | Reusable package, round function, and permutation controller | Implemented |
+| Encryption interface | Basys 3 GPIO wrapper for Raspberry Pi communication | Implemented and hardware-tested |
+| Decryption interface | Basys 3 GPIO wrapper with authentication status and controlled plaintext release | Implemented and hardware-tested |
+| Shared-engine / dual-engine comparison | Alternative architectures and quantitative trade-off analysis | Planned |
+| Other FPGA families | Porting and comparative implementation | Planned |
 
-| Platform | FPGA Family | Development Tools | Status |
-|---|---|---|---|
-| Digilent Basys 3 | Xilinx Artix-7 | AMD Vivado | Initial development |
-| Intel (Altera) FPGA board | To be determined | Intel Quartus Prime | Planned |
-| Additional FPGA platforms | To be determined | Platform-dependent | Potential future work |
+### ASCON Processing Architecture
 
-## Hardware Architecture
+The ASCON permutation operates on a **320-bit internal state** and applies three transformations in each round:
 
-The project explores multiple hardware implementation strategies.
+- **pC:** addition of round constants;
+- **pS:** nonlinear substitution layer;
+- **pL:** linear diffusion layer.
 
-### Shared-Engine Architecture
+The VHDL design separates the round function, permutation controller, algorithm-level control, and board-specific interface logic where practical. See [`rtl/README.md`](rtl/README.md) for the RTL organization.
 
-A single cryptographic processing engine is shared between encryption and decryption operations.
+## Verification Results
 
-This approach is intended to investigate potential reductions in hardware resource utilization through resource sharing.
+The following are **recorded results from earlier runs of the implementations**, not a claim that all scripts have been rerun after reorganizing the repository.
 
-### Dual-Engine Architecture
+| Verification activity | Recorded outcome | Scope |
+|---|---|---|
+| Encryption simulation KAT | **1,089 / 1,089 passed** | Full encryption KAT run |
+| Decryption core simulation KAT | **1,089 / 1,089 passed** | Full decryption core KAT run |
+| Encryption Raspberry Pi / FPGA hardware KAT | **1,089 / 1,089 passed** | Recorded hardware test report |
+| Decryption Raspberry Pi / FPGA hardware tests | **1,122 / 1,122 passed** | 561 eligible vectors tested with valid and corrupted tags |
 
-Separate processing engines are implemented for encryption and decryption.
+**Hardware decryption scope:** The current decryption wrapper processes at most **16 bytes of ciphertext per transaction**. In the recorded hardware KAT run, **528 longer vectors were skipped**, not passed. The decryption core's simulation coverage and the hardware wrapper's coverage are therefore different.
 
-This approach is intended to investigate architectural parallelism, resource requirements, and performance trade-offs.
+For original logs, test commands, and interpretation, consult [`simulation/README.md`](simulation/README.md), [`software/README.md`](software/README.md), and [`reports/README.md`](reports/README.md).
 
-The exact implementation and comparison methodology will be refined as development progresses.
+## FPGA Implementation and Timing
 
-## ASCON Processing Architecture
+- **Development board:** Digilent Basys 3.
+- **FPGA:** Xilinx Artix-7 XC7A35T-1CPG236C.
+- **Target clock constraint:** 100 MHz (10 ns period).
+- **Implementation tool:** AMD Vivado **2024.1**, as identified in the archived implementation reports.
+- **Simulator:** ModelSim – Intel FPGA Starter Edition **2020.1** (`vsim 2020.02`, February 28, 2020).
 
-The ASCON implementation is based on a 320-bit internal state and a round-based permutation architecture.
+The archived routed timing reports indicate that the **specified internal timing constraints were met** at the 100 MHz target. However, the reports identify **missing external input/output delay constraints** for the GPIO interface. Accordingly, the results must **not** be interpreted as complete timing sign-off for all external interface paths.
 
-The permutation consists of three main transformations:
-
-- **Addition of Round Constants (pC)**
-- **Substitution Layer (pS)**
-- **Linear Diffusion Layer (pL)**
-
-The hardware design separates the cryptographic processing logic from the permutation controller, top-level control logic, and FPGA-specific interfaces where practical.
-
-## Verification and Testing
-
-The verification methodology includes:
-
-- VHDL simulation and functional testbenches.
-- Comparison against official ASCON Known Answer Test vectors.
-- Verification of encryption and decryption operations.
-- FPGA synthesis and implementation analysis.
-- Hardware-level testing on the target FPGA boards.
-
-## Performance Evaluation
-
-The project aims to compare implementations using engineering metrics such as:
-
-- LUT utilization.
-- Flip-flop and register utilization.
-- FPGA logic resource usage.
-- Maximum operating frequency.
-- Clock-cycle latency.
-- Data throughput.
-- Resource-versus-performance trade-offs.
-
-## Project Development Status
-
-The project is under active development, with initial encryption and decryption implementations completed for the Digilent Basys 3 FPGA platform.
-
-### Implemented Components
-
-- **ASCON Encryption Core:** VHDL implementation of authenticated encryption.
-- **ASCON Decryption Core:** VHDL implementation of authenticated decryption and authentication-tag verification.
-- **Shared Permutation Components:** Reusable round function, permutation controller, and supporting VHDL package.
-- **FPGA Interface Wrappers:** Separate encryption and decryption wrappers supporting communication with a Raspberry Pi 5 through GPIO.
-- **Verification Infrastructure:** VHDL testbenches, ModelSim scripts, Python-based hardware tests, and Known Answer Test vectors.
-- **FPGA Implementation:** Initial synthesis, placement, routing, and implementation reports generated using AMD Vivado.
-
-### Verification Progress
-
-- **Encryption:** Previously validated against 1,089 KAT vectors.
-- **Decryption:** Previously validated against 561 eligible KAT vectors, including positive and negative authentication tests (1,122 test executions).
-- **Current limitation:** The existing decryption wrapper supports ciphertext messages of up to 16 bytes per transaction. Longer-message support remains future work.
-
-These results refer to the previously tested implementations. Revalidation of the reorganized repository and its simulation scripts is pending.
-
-### Next Development Stages
-
-- Adapt simulation scripts to the new repository structure.
-- Revalidate encryption and decryption implementations.
-- Develop shared-engine and dual-engine architectures.
-- Establish consistent performance measurement and comparison methods.
-- Extend the implementations to additional FPGA platforms.
+Resource utilization, timing slack, and estimated power must be compared using the relevant reports for each build. See [`reports/README.md`](reports/README.md) and [`docs/development_environment.md`](docs/development_environment.md).
 
 ## Repository Structure
 
-The repository is organized into the following directories:
+```text
+ASCON-FPGA-Implementations/
+├── rtl/
+│   ├── common/           # ASCON package, round and permutation
+│   ├── encryption/       # Encryption top level
+│   ├── decryption/       # Decryption top level
+│   └── interfaces/       # Board/host wrappers
+├── simulation/
+│   ├── encryption/       # Encryption testbenches and .do scripts
+│   └── decryption/       # Decryption testbenches and .do scripts
+├── software/
+│   ├── encryption/       # Raspberry Pi encryption verification
+│   └── decryption/       # Raspberry Pi decryption verification
+├── constraints/          # Basys 3 XDC constraints
+├── verification/
+│   └── KAT/              # Known-answer test vectors
+├── reports/
+│   ├── encryption/       # Encryption test logs and Vivado reports
+│   ├── decryption/       # Decryption test logs and Vivado reports
+│   └── comparisons/      # Future comparisons
+├── docs/                 # Technical documentation and environment
+├── boards/               # Board-specific information
+└── scripts/              # Supporting utilities
+```
 
-| Directory | Description |
+## Documentation Guide
+
+| Location | Contents |
 |---|---|
-| `rtl/` | VHDL source files for ASCON encryption, decryption, shared components, and hardware interfaces. |
-| `rtl/common/` | Shared ASCON package, round function, and permutation controller. |
-| `rtl/encryption/` | ASCON authenticated encryption implementation. |
-| `rtl/decryption/` | ASCON authenticated decryption implementation. |
-| `rtl/interfaces/` | FPGA interface wrappers for communication and control. |
-| `simulation/` | VHDL testbenches and ModelSim simulation scripts. |
-| `software/` | Python utilities for verification and Raspberry Pi communication. |
-| `constraints/` | FPGA pin assignments and timing constraints. |
-| `verification/` | Known Answer Test vectors and verification resources. |
-| `reports/` | Functional test results and FPGA synthesis/implementation reports. |
-| `docs/` | Technical documentation and architectural descriptions. |
-| `boards/` | Board-specific information and integration resources. |
-| `scripts/` | Additional project scripts and utilities. |
+| [`rtl/README.md`](rtl/README.md) | VHDL module structure and interfaces |
+| [`simulation/README.md`](simulation/README.md) | Testbenches, simulation scripts, and verification flow |
+| [`constraints/README.md`](constraints/README.md) | Basys 3 pin mapping and timing constraints |
+| [`software/README.md`](software/README.md) | Raspberry Pi Python scripts and GPIO testing |
+| [`reports/README.md`](reports/README.md) | Hardware results, utilization, timing, and power reports |
+| [`docs/README.md`](docs/README.md) | Technical documentation index |
+| [`docs/development_environment.md`](docs/development_environment.md) | Tool versions, hardware, and reproducibility notes |
 
-The repository separates reusable cryptographic logic from FPGA-specific interfaces and verification infrastructure.
+## Reproducibility and Current Limitations
 
-This organization is intended to support future architectural exploration and cross-platform FPGA implementations.
+- The source tree has been reorganized. **Simulation scripts and build instructions should be revalidated from the current repository paths** before treating a new checkout as fully reproducible.
+- The two FPGA interface wrappers may define the same VHDL entity name (`wrapper`); build each configuration in its own compilation context or library as described in the simulation documentation.
+- Hardware GPIO timing is not fully constrained by the available XDC files; external interface timing requires separate consideration.
+- Hardware decryption testing is currently limited to ciphertext blocks of up to 16 bytes per transaction.
+- Archived power figures are tool estimates, not direct board power measurements.
+- Do not equate a **100 MHz clock constraint** with an independently measured maximum operating frequency.
 
-## Documentation
+## Planned Development
 
-This repository is intended to include VHDL source code, testbenches, FPGA constraints, relevant implementation scripts, verification results, architecture diagrams, and technical documentation.
+1. Revalidate the reorganized encryption and decryption simulation flows.
+2. Freeze reproducible baseline revisions with source files, constraints, scripts, KAT logs, and Vivado reports.
+3. Establish consistent measurement methods for latency, throughput, resource usage, and power.
+4. Investigate shared-engine and separate-engine architectures.
+5. Extend hardware support and compare implementations on additional FPGA platforms.
 
 ---
 
-**Project Type:** Electrical / Computer Engineering Final Project
-
-**Hardware Description Language:** VHDL
-
-**Cryptographic Algorithm:** ASCON
-
-**Primary Development Platform:** Xilinx Artix-7 (Digilent Basys 3)
+**Project type:** Electrical / Computer Engineering Final Project  
+**Hardware description language:** VHDL  
+**Algorithm:** ASCON authenticated encryption  
+**Initial platform:** Digilent Basys 3 (Xilinx Artix-7)
