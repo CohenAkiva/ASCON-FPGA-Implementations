@@ -42,14 +42,36 @@ architecture wrapper_ARC of wrapper is
     signal result_bytes : unsigned(4 downto 0) := (others => '0');
     signal result_valid, transaction_done, transaction_started, error_flag : std_logic := '0';
     signal reg_output_byte : std_logic_vector(7 downto 0) := (others => '0');
-    signal active_cycles, last_cycles : unsigned(31 downto 0) := (others => '0');
-    signal total_cycles : unsigned(31 downto 0) := (others => '0');
+    signal last_cycles, total_cycles : std_logic_vector(31 downto 0);
+    signal mon_cmd_start, mon_cmd_active, mon_cmd_stop, mon_transaction_reset : std_logic;
 
     type WrapperState is (IDLE, START_INIT, WAIT_INIT_LOW, WAIT_INIT_HIGH,
                           START_BLOCK, WAIT_BLOCK_LOW, WAIT_BLOCK_HIGH);
     signal state : WrapperState := IDLE;
 begin
     DATA_OUT <= reg_output_byte;
+
+    -- Decode legacy counter events from the CURRENT wrapper state.
+    mon_cmd_start <= '1' when (state = START_INIT or state = START_BLOCK) else '0';
+    mon_cmd_active <= '1' when state /= IDLE else '0';
+    mon_cmd_stop <= '1' when ((state = WAIT_INIT_HIGH or state = WAIT_BLOCK_HIGH)
+                                  and ascon_ready = '1') else '0';
+    -- Decryption initialization requires KEY, NONCE and TAG to be complete.
+    mon_transaction_reset <= '1' when (state = IDLE and write_sync2 = '1' and write_prev = '0'
+                                      and ADDRESS = "110000" and DATA_IN = x"01"
+                                      and key_written = x"FFFF" and nonce_written = x"FFFF"
+                                      and tag_written = x"FFFF" and ascon_ready = '1') else '0';
+
+    u_performance_monitor : entity work.ASCON_PERFORMANCE_MONITOR
+        port map (
+            CLK => CLK, RESET => RESET,
+            CMD_START => mon_cmd_start,
+            CMD_ACTIVE => mon_cmd_active,
+            CMD_STOP => mon_cmd_stop,
+            TRANSACTION_RESET => mon_transaction_reset,
+            LAST_CYCLES => last_cycles,
+            TOTAL_CYCLES => total_cycles
+        );
 
     u_ascon : entity work.ASCON_DECRYPT_TOP_LEVEL
         port map (
@@ -96,8 +118,6 @@ begin
                 result_valid <= '0'; transaction_done <= '0';
                 transaction_started <= '0'; error_flag <= '0';
                 reg_output_byte <= (others => '0');
-                active_cycles <= (others => '0'); last_cycles <= (others => '0');
-                total_cycles <= (others => '0');
                 ascon_start <= '0'; state <= IDLE;
             else
                 ascon_start <= '0';
@@ -132,18 +152,13 @@ begin
                         reg_output_byte <= "000" & std_logic_vector(result_bytes);
                     elsif a >= 54 and a <= 57 then
                         idx := a-54;
-                        reg_output_byte <= std_logic_vector(last_cycles(8*idx+7 downto 8*idx));
+                        reg_output_byte <= last_cycles(8*idx+7 downto 8*idx);
                     elsif a >= 58 and a <= 61 then
                         idx := a-58;
-                        reg_output_byte <= std_logic_vector(total_cycles(8*idx+7 downto 8*idx));
+                        reg_output_byte <= total_cycles(8*idx+7 downto 8*idx);
                     else
                         reg_output_byte <= (others => '0');
                     end if;
-                end if;
-
-                -- Count only FPGA processing cycles, not Raspberry Pi idle/transfer time.
-                if state /= IDLE then
-                    active_cycles <= active_cycles + 1;
                 end if;
 
                 case state is
@@ -187,7 +202,6 @@ begin
                                         result_valid <= '0'; auth_valid <= '0';
                                         reg_data_out <= (others => '0');
                                         error_flag <= '0';
-                                        total_cycles <= (others => '0');
                                         state <= START_INIT;
                                     else
                                         error_flag <= '1';
@@ -218,20 +232,16 @@ begin
                             end if;
                         end if;
                     when START_INIT =>
-                        active_cycles <= (others => '0');
                         ascon_start <= '1';
                         state <= WAIT_INIT_LOW;
                     when WAIT_INIT_LOW =>
                         if ascon_ready = '0' then state <= WAIT_INIT_HIGH; end if;
                     when WAIT_INIT_HIGH =>
                         if ascon_ready = '1' then
-                            last_cycles <= active_cycles;
-                            total_cycles <= total_cycles + active_cycles;
                             state <= IDLE;
                         end if;
                     when START_BLOCK =>
                         saw_done <= '0';
-                        active_cycles <= (others => '0');
                         ascon_start <= '1';
                         state <= WAIT_BLOCK_LOW;
                     when WAIT_BLOCK_LOW =>
@@ -257,8 +267,6 @@ begin
                                     result_valid <= '0';
                                 end if;
                             end if;
-                            last_cycles <= active_cycles;
-                            total_cycles <= total_cycles + active_cycles;
                             data_written <= (others => '0');
                             reg_data_in <= (others => '0');
                             state <= IDLE;

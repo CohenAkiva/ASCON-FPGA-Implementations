@@ -21,6 +21,7 @@ vcom -2008 rtl/common/ASCON_PERMUTATION.vhd
 
 # Compile the encryption core and FPGA wrapper.
 vcom -2008 rtl/encryption/ASCON_TOP_LEVEL.vhd
+vcom -2008 rtl/common/ASCON_PERFORMANCE_MONITOR.vhd
 vcom -2008 rtl/interfaces/wrapper_encrypt.vhd
 
 # Compile the performance testbench.
@@ -29,4 +30,5 @@ vcom -2008 simulation/encryption/tb_wrapper_v2_perf.vhd
 # Load and run the performance testbench.
 vsim work.tb_wrapper_v2_perf
 run -all
+
 

@@ -22,6 +22,7 @@ vcom -2008 rtl/common/ASCON_PERMUTATION.vhd
 
 # Decryption core and wrapper
 vcom -2008 rtl/decryption/ASCON_DECRYPT_TOP_LEVEL.vhd
+vcom -2008 rtl/common/ASCON_PERFORMANCE_MONITOR.vhd
 vcom -2008 rtl/interfaces/wrapper_decrypt.vhd
 
 # Decryption wrapper testbench
@@ -53,3 +54,4 @@ add wave sim:/tb_wrapper_decrypt/dut/transaction_done
 add wave sim:/tb_wrapper_decrypt/dut/error_flag
 
 run -all
+
