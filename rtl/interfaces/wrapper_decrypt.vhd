@@ -44,12 +44,31 @@ architecture wrapper_ARC of wrapper is
     signal reg_output_byte : std_logic_vector(7 downto 0) := (others => '0');
     signal last_cycles, total_cycles : std_logic_vector(31 downto 0);
     signal mon_cmd_start, mon_cmd_active, mon_cmd_stop, mon_transaction_reset : std_logic;
+    signal core_processing : std_logic;
+    signal core_ready_prev : std_logic := '1';
+    signal core_start_event, core_stop_event : std_logic;
+    signal core_last_latency, core_last_active, core_total_active : std_logic_vector(31 downto 0);
+
 
     type WrapperState is (IDLE, START_INIT, WAIT_INIT_LOW, WAIT_INIT_HIGH,
                           START_BLOCK, WAIT_BLOCK_LOW, WAIT_BLOCK_HIGH);
     signal state : WrapperState := IDLE;
 begin
     DATA_OUT <= reg_output_byte;
+
+    -- Monitor core handshakes, not wrapper FSM states.
+    core_start_event <= ascon_start and ascon_ready;
+    core_stop_event <= ascon_ready and not core_ready_prev;
+    process(CLK)
+    begin
+        if rising_edge(CLK) then
+            if RESET = '1' then
+                core_ready_prev <= '1';
+            else
+                core_ready_prev <= ascon_ready;
+            end if;
+        end if;
+    end process;
 
     -- Decode legacy counter events from the CURRENT wrapper state.
     mon_cmd_start <= '1' when (state = START_INIT or state = START_BLOCK) else '0';
@@ -70,7 +89,14 @@ begin
             CMD_STOP => mon_cmd_stop,
             TRANSACTION_RESET => mon_transaction_reset,
             LAST_CYCLES => last_cycles,
-            TOTAL_CYCLES => total_cycles
+            TOTAL_CYCLES => total_cycles,
+            CORE_START => core_start_event,
+            CORE_BUSY => core_processing,
+            CORE_STOP => core_stop_event,
+            CORE_RESET => mon_transaction_reset,
+            CORE_LAST_LATENCY => core_last_latency,
+            CORE_LAST_ACTIVE => core_last_active,
+            CORE_TOTAL_ACTIVE => core_total_active
         );
 
     u_ascon : entity work.ASCON_DECRYPT_TOP_LEVEL
@@ -82,7 +108,8 @@ begin
             IS_LAST => is_last_latched,
             DATA_OUT => ascon_data_out, TAG_IN => reg_tag,
             TAG_VALID => ascon_tag_valid,
-            READY => ascon_ready, DONE => ascon_done
+            READY => ascon_ready, DONE => ascon_done,
+            CORE_PROCESSING => core_processing
         );
 
     process(CLK)

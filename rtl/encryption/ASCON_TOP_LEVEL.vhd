@@ -21,7 +21,8 @@ entity ASCON_TOP_LEVEL is
         DATA_OUT   : out std_logic_vector(127 downto 0);                          -- Ciphertext block; valid bytes equal DATA_BYTES.
         TAG        : out std_logic_vector(127 downto 0);                          -- 128-bit authentication tag T.
         READY      : out std_logic;                                               -- High means START may be accepted.
-        DONE       : out std_logic                                                -- One-cycle completion indication; TAG is ready.
+        DONE       : out std_logic;                                                -- One-cycle completion indication; TAG is ready.
+        CORE_PROCESSING : out std_logic
     );
 end ASCON_TOP_LEVEL;
 
@@ -80,6 +81,12 @@ architecture Behavioral of ASCON_TOP_LEVEL is
     constant ZERO128 : std_logic_vector(127 downto 0):= (others => '0');                   -- Reusable all-zero block for empty padding blocks.
         
 begin
+    -- Active internal processing; excludes waits for external AD/PT blocks.
+    CORE_PROCESSING <= '0' when (current_top_state = IDLE or
+                                  current_top_state = WAIT_AD_INPUT or
+                                  current_top_state = WAIT_PT_INPUT or
+                                  current_top_state = FINISH) else '1';
+
     PERM_INST : ASCON_PERMUTATION
         port map 
 		(
