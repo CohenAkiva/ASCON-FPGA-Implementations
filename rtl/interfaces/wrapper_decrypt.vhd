@@ -42,12 +42,7 @@ architecture wrapper_ARC of wrapper is
     signal result_bytes : unsigned(4 downto 0) := (others => '0');
     signal result_valid, transaction_done, transaction_started, error_flag : std_logic := '0';
     signal reg_output_byte : std_logic_vector(7 downto 0) := (others => '0');
-    signal last_cycles, total_cycles : std_logic_vector(31 downto 0);
-    signal mon_cmd_start, mon_cmd_active, mon_cmd_stop, mon_transaction_reset : std_logic;
-    signal core_processing : std_logic;
-    signal core_ready_prev : std_logic := '1';
-    signal core_start_event, core_stop_event : std_logic;
-    signal core_last_latency, core_last_active, core_total_active : std_logic_vector(31 downto 0);
+
 
 
     type WrapperState is (IDLE, START_INIT, WAIT_INIT_LOW, WAIT_INIT_HIGH,
@@ -55,49 +50,6 @@ architecture wrapper_ARC of wrapper is
     signal state : WrapperState := IDLE;
 begin
     DATA_OUT <= reg_output_byte;
-
-    -- Monitor core handshakes, not wrapper FSM states.
-    core_start_event <= ascon_start and ascon_ready;
-    core_stop_event <= ascon_ready and not core_ready_prev;
-    process(CLK)
-    begin
-        if rising_edge(CLK) then
-            if RESET = '1' then
-                core_ready_prev <= '1';
-            else
-                core_ready_prev <= ascon_ready;
-            end if;
-        end if;
-    end process;
-
-    -- Decode legacy counter events from the CURRENT wrapper state.
-    mon_cmd_start <= '1' when (state = START_INIT or state = START_BLOCK) else '0';
-    mon_cmd_active <= '1' when state /= IDLE else '0';
-    mon_cmd_stop <= '1' when ((state = WAIT_INIT_HIGH or state = WAIT_BLOCK_HIGH)
-                                  and ascon_ready = '1') else '0';
-    -- Decryption initialization requires KEY, NONCE and TAG to be complete.
-    mon_transaction_reset <= '1' when (state = IDLE and write_sync2 = '1' and write_prev = '0'
-                                      and ADDRESS = "110000" and DATA_IN = x"01"
-                                      and key_written = x"FFFF" and nonce_written = x"FFFF"
-                                      and tag_written = x"FFFF" and ascon_ready = '1') else '0';
-
-    u_performance_monitor : entity work.ASCON_PERFORMANCE_MONITOR
-        port map (
-            CLK => CLK, RESET => RESET,
-            CMD_START => mon_cmd_start,
-            CMD_ACTIVE => mon_cmd_active,
-            CMD_STOP => mon_cmd_stop,
-            TRANSACTION_RESET => mon_transaction_reset,
-            LAST_CYCLES => last_cycles,
-            TOTAL_CYCLES => total_cycles,
-            CORE_START => core_start_event,
-            CORE_BUSY => core_processing,
-            CORE_STOP => core_stop_event,
-            CORE_RESET => mon_transaction_reset,
-            CORE_LAST_LATENCY => core_last_latency,
-            CORE_LAST_ACTIVE => core_last_active,
-            CORE_TOTAL_ACTIVE => core_total_active
-        );
 
     u_ascon : entity work.ASCON_DECRYPT_TOP_LEVEL
         port map (
@@ -108,8 +60,7 @@ begin
             IS_LAST => is_last_latched,
             DATA_OUT => ascon_data_out, TAG_IN => reg_tag,
             TAG_VALID => ascon_tag_valid,
-            READY => ascon_ready, DONE => ascon_done,
-            CORE_PROCESSING => core_processing
+            READY => ascon_ready, DONE => ascon_done
         );
 
     process(CLK)
@@ -145,14 +96,15 @@ begin
                 result_valid <= '0'; transaction_done <= '0';
                 transaction_started <= '0'; error_flag <= '0';
                 reg_output_byte <= (others => '0');
+
+
                 ascon_start <= '0'; state <= IDLE;
             else
                 ascon_start <= '0';
                 a := to_integer(unsigned(ADDRESS));
 
                 -- Read address map: CT=0..15, TAG=16..31, status=49,
-                -- result length=53, last-command cycles=54..57,
-                -- cumulative active cycles=58..61 (little-endian bytes).
+                -- Output length at address 53. Addresses 54..61 are reserved.
                 if read_sync2 = '1' and read_prev = '0' then
                     if a <= 15 then
                         idx := a;
@@ -177,16 +129,11 @@ begin
                         reg_output_byte <= "0000000" & tag_bank;
                     elsif a = 53 then
                         reg_output_byte <= "000" & std_logic_vector(result_bytes);
-                    elsif a >= 54 and a <= 57 then
-                        idx := a-54;
-                        reg_output_byte <= last_cycles(8*idx+7 downto 8*idx);
-                    elsif a >= 58 and a <= 61 then
-                        idx := a-58;
-                        reg_output_byte <= total_cycles(8*idx+7 downto 8*idx);
                     else
                         reg_output_byte <= (others => '0');
                     end if;
                 end if;
+
 
                 case state is
                     when IDLE =>
@@ -229,6 +176,7 @@ begin
                                         result_valid <= '0'; auth_valid <= '0';
                                         reg_data_out <= (others => '0');
                                         error_flag <= '0';
+
                                         state <= START_INIT;
                                     else
                                         error_flag <= '1';
@@ -259,16 +207,20 @@ begin
                             end if;
                         end if;
                     when START_INIT =>
+
                         ascon_start <= '1';
                         state <= WAIT_INIT_LOW;
                     when WAIT_INIT_LOW =>
                         if ascon_ready = '0' then state <= WAIT_INIT_HIGH; end if;
                     when WAIT_INIT_HIGH =>
                         if ascon_ready = '1' then
+
+
                             state <= IDLE;
                         end if;
                     when START_BLOCK =>
                         saw_done <= '0';
+
                         ascon_start <= '1';
                         state <= WAIT_BLOCK_LOW;
                     when WAIT_BLOCK_LOW =>
@@ -294,6 +246,8 @@ begin
                                     result_valid <= '0';
                                 end if;
                             end if;
+
+
                             data_written <= (others => '0');
                             reg_data_in <= (others => '0');
                             state <= IDLE;

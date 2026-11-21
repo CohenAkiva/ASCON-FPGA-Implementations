@@ -3,10 +3,10 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use std.env.all;
 
-entity tb_wrapper_decrypt is
+entity tb_wrapper_decrypt_extra is
 end entity;
 
-architecture sim of tb_wrapper_decrypt is
+architecture sim of tb_wrapper_decrypt_extra is
     constant PERIOD : time := 10 ns;
     signal clk : std_logic := '0';
     signal reset : std_logic := '1';
@@ -50,7 +50,6 @@ begin
         variable status : std_logic_vector(7 downto 0);
         variable value : std_logic_vector(7 downto 0);
         variable tests : natural := 0;
-        variable perf_step : natural := 1;
 
         procedure write_byte(a : natural; b : std_logic_vector(7 downto 0)) is
         begin
@@ -116,30 +115,6 @@ begin
                 " last=" & to_hstring(s) severity failure;
         end procedure;
 
-        -- Read a 32-bit counter from four little-endian MMIO bytes.
-        procedure read_counter(base : natural; variable result : out unsigned(31 downto 0)) is
-            variable b : std_logic_vector(7 downto 0);
-        begin
-            result := (others => '0');
-            for i in 0 to 3 loop
-                read_byte(base+i, b);
-                result(8*i+7 downto 8*i) := unsigned(b);
-            end loop;
-        end procedure;
-
-        procedure report_cycles(phase : string) is
-            variable last_value  : unsigned(31 downto 0);
-            variable total_value : unsigned(31 downto 0);
-        begin
-            read_counter(54, last_value);
-            read_counter(58, total_value);
-            report "DECRYPT_PERF,Step=" & integer'image(perf_step) &
-                   ",Phase=" & phase &
-                   ",LAST=" & integer'image(to_integer(last_value)) &
-                   ",TOTAL=" & integer'image(to_integer(total_value));
-            perf_step := perf_step + 1;
-        end procedure;
-
         procedure reset_dut is
         begin
             wait until falling_edge(clk);
@@ -170,7 +145,6 @@ begin
             end if;
             write_num(48, 1);  -- Initialize
             wait_status(x"01", x"01"); -- Ready for the first block
-            report_cycles("INIT");
         end procedure;
 
         procedure send_block(s : string; is_ad : boolean) is
@@ -192,27 +166,22 @@ begin
             else
                 wait_status(x"04", x"04"); -- Transaction complete
             end if;
-            if is_ad then
-                report_cycles("AD");
-            else
-                report_cycles("CT");
-            end if;
         end procedure;
 
         procedure expect_status(auth_ok : boolean) is
             variable s : std_logic_vector(7 downto 0);
         begin
             read_byte(49, s);
-            assert s(2) = '1' report "Transaction DONE not set" severity error;
-            assert s(3) = '0' report "Wrapper error flag set" severity error;
+            assert s(2) = '1' report "Transaction DONE not set" severity failure;
+            assert s(3) = '0' report "Wrapper error flag set" severity failure;
             if auth_ok then
                 assert s(4) = '1' and s(1) = '1'
                     report "Expected authenticated valid result, STATUS=" &
-                    to_hstring(s) severity error;
+                    to_hstring(s) severity failure;
             else
                 assert s(4) = '0' and s(1) = '0'
                     report "Corrupted tag unexpectedly accepted, STATUS=" &
-                    to_hstring(s) severity error;
+                    to_hstring(s) severity failure;
             end if;
         end procedure;
 
@@ -224,20 +193,20 @@ begin
             read_byte(53, b);
             if valid then
                 assert to_integer(unsigned(b)) = n
-                    report "Wrong plaintext byte count" severity error;
+                    report "Wrong plaintext byte count" severity failure;
             else
-                assert b = x"00" report "Invalid plaintext length not zero" severity error;
+                assert b = x"00" report "Invalid plaintext length not zero" severity failure;
             end if;
             for i in 0 to 15 loop
                 read_byte(i, b);
                 if valid and i < n then
                     assert b = hex_byte(s, i)
                         report "Plaintext mismatch at byte " & integer'image(i) &
-                        ": got " & to_hstring(b) severity error;
+                        ": got " & to_hstring(b) severity failure;
                 else
                     assert b = x"00"
                         report "Plaintext should be hidden/zero at byte " &
-                        integer'image(i) severity error;
+                        integer'image(i) severity failure;
                 end if;
             end loop;
         end procedure;
@@ -246,95 +215,66 @@ begin
             variable b : std_logic_vector(7 downto 0);
         begin
             read_byte(0, b);
-            assert b = x"00" report "Plaintext exposed before authentication" severity error;
+            assert b = x"00" report "Plaintext exposed before authentication" severity failure;
         end procedure;
 
     begin
-        report "START WRAPPER DECRYPTION INTEGRATION TESTS";
-
-        -- KAT Count 1: empty AD and empty plaintext.
+        report "START ADDITIONAL DECRYPT WRAPPER REGRESSION";
         reset_dut;
         initialize("4F9C278211BEC9316BF68F46EE8B2EC6", false);
         check_hidden_before_completion;
         send_block("", false);
         expect_status(true);
         expect_plaintext("", true);
-        tests := tests+1;
-        report "PASS Count=1: empty ciphertext, valid tag";
+        tests := tests + 1;
+        report "PASS 1: empty message";
 
-        -- KAT Count 2: 1 byte of AD, empty plaintext.
-        reset_dut;
-        initialize("CCCB674FE18A09A285D6AB11B35675C0", true);
-        send_block("30", true);
-        check_hidden_before_completion;
-        send_block("", false);
-        expect_status(true);
-        expect_plaintext("", true);
-        tests := tests+1;
-        report "PASS Count=2: AD and empty ciphertext";
-
-        -- KAT Count 34: one ciphertext byte E8 -> plaintext 20.
-        reset_dut;
-        initialize("DD576ABA1CD3E6FC704DE02AEDB79588", false);
-        check_hidden_before_completion;
-        send_block("E8", false);
-        expect_status(true);
-        expect_plaintext("20", true);
-        tests := tests+1;
-        report "PASS Count=34: 1-byte ciphertext";
-
-        -- KAT Count 50: 16-byte AD and 1-byte ciphertext.
-        reset_dut;
-        initialize("8BBACE2C82A050832E46B3224A9552A0", true);
-        send_block("303132333435363738393A3B3C3D3E3F", true);
-        send_block("63", false);
-        expect_status(true);
-        expect_plaintext("20", true);
-        tests := tests+1;
-        report "PASS Count=50: full AD block, 1-byte ciphertext";
-
-        -- KAT Count 529: exactly 16 bytes of ciphertext.
-        reset_dut;
+        -- Consecutive transactions without reset; stale plaintext must not leak.
         initialize("9EAA915C9DD3245D77048F24D46D27A7", false);
+        check_hidden_before_completion;
         send_block("E8C3DEEE246CC5EAE3E872313897A2BB", false);
         expect_status(true);
         expect_plaintext("202122232425262728292A2B2C2D2E2F", true);
-        tests := tests+1;
-        report "PASS Count=529: full ciphertext block";
+        tests := tests + 1;
+        report "PASS 2: 16-byte valid message, no reset";
 
-        -- Negative: flip first bit of the Count 34 tag.
-        reset_dut;
         initialize("5D576ABA1CD3E6FC704DE02AEDB79588", false);
         check_hidden_before_completion;
         send_block("E8", false);
         expect_status(false);
-        expect_plaintext("20", false);
-        tests := tests+1;
-        report "PASS Count=34: corrupted TAG rejected, plaintext hidden";
-
-        -- Negative: corrupt the Count 34 ciphertext but keep the original tag.
-        reset_dut;
-        initialize("DD576ABA1CD3E6FC704DE02AEDB79588", false);
-        send_block("E9", false);
-        expect_status(false);
-        expect_plaintext("20", false);
-        tests := tests+1;
-        report "PASS Count=34: corrupted ciphertext rejected";
-
-        -- Negative: corrupt the Count 2 AD but keep the original tag.
-        reset_dut;
-        initialize("CCCB674FE18A09A285D6AB11B35675C0", true);
-        send_block("31", true);
-        send_block("", false);
-        expect_status(false);
         expect_plaintext("", false);
-        tests := tests+1;
-        report "PASS Count=2: corrupted AD rejected";
+        tests := tests + 1;
+        report "PASS 3: invalid tag after valid message, no reset";
 
-        report "====================================================";
+        initialize("83AECC1DA0834A52940EC4BFCDDB6404", false);
+        check_hidden_before_completion;
+        send_block("E8C3DEEE246CC5EAE3E872313897A2", false);
+        expect_status(true);
+        expect_plaintext("202122232425262728292A2B2C2D2E", true);
+        tests := tests + 1;
+        report "PASS 4: 15-byte valid message after invalid tag";
+
+        initialize("DD576ABA1CD3E6FC704DE02AEDB79588", false);
+        check_hidden_before_completion;
+        reset_dut;
+        read_byte(49, status);
+        assert (status and x"1E") = x"00"
+            report "Reset did not clear result/auth/done/error status" severity failure;
+        expect_plaintext("", false);
+        tests := tests + 1;
+        report "PASS 5: reset clears plaintext and status";
+
+        initialize("DD576ABA1CD3E6FC704DE02AEDB79588", false);
+        write_num(50, 17);
+        read_byte(49, status);
+        assert status(3) = '1'
+            report "Invalid DATA_BYTES=17 was not rejected" severity failure;
+        check_hidden_before_completion;
+        tests := tests + 1;
+        report "PASS 6: invalid 17-byte block rejected";
+
         report "ALL " & integer'image(tests) &
-               " WRAPPER DECRYPTION TESTS COMPLETED";
-        report "====================================================";
+               " ADDITIONAL DECRYPT WRAPPER TESTS COMPLETED";
         finish(0);
         wait;
     end process;

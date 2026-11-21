@@ -83,7 +83,6 @@ begin
       variable v: std_logic_vector(7 downto 0);
       variable ptlen,adlen,clen: natural;
       variable off,n: natural;
-      variable cycle_count: unsigned(31 downto 0);
     begin
       ptlen:=pt'length/2; adlen:=ad'length/2; clen:=ct_tag'length/2-16;
       assert clen=ptlen report "KAT length mismatch" severity failure;
@@ -121,17 +120,11 @@ begin
           report "Tag mismatch Count=" & integer'image(id) &
           " byte=" & integer'image(i) severity failure;
       end loop;
-      cycle_count := (others => '0');
-      for j in 0 to 3 loop
-        rd(58+j,v);
-        cycle_count(8*j+7 downto 8*j) := unsigned(v);
-      end loop;
-      assert cycle_count /= to_unsigned(0,32)
-        report "Zero active cycle count" severity failure;
+      -- Performance counters were removed from the basic wrapper.
+      -- KAT ciphertext, tag, length, and completion assertions above remain unchanged.
       report "PASS Count=" & integer'image(id) &
         " AD_bytes=" & integer'image(adlen) &
-        " PT_bytes=" & integer'image(ptlen) &
-        " FPGA_active_cycles=" & integer'image(to_integer(cycle_count));
+        " PT_bytes=" & integer'image(ptlen);
     end procedure;
   begin
     wait for 50 ns; reset<='0'; wait for 100 ns;
