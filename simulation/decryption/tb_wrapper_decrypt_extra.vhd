@@ -131,150 +131,150 @@ begin
             end loop;
         end procedure;
 
-        procedure initialize(tag_hex : string; has_ad : boolean) is
+        -- Two-pass protocol: 03=VERIFY, 04=RELEASE, 02=BLOCK.
+        -- STATUS: bit0 READY, bit1 RESULT_VALID, bit2 DONE,
+        -- bit3 ERROR, bit4 AUTH, bit6 VERIFIED, bit7 RELEASE_MODE.
+        procedure prepare(tag_hex : string; has_ad : boolean) is
         begin
             write_hex(0, KEY_HEX);
             write_hex(16, NONCE_HEX);
-            write_num(62, 1);  -- TAG bank
+            write_num(62, 1);
             write_hex(32, tag_hex);
-            write_num(62, 0);  -- Input-data bank
-            if has_ad then
-                write_num(52, 1);
-            else
-                write_num(52, 0);
-            end if;
-            write_num(48, 1);  -- Initialize
-            wait_status(x"01", x"01"); -- Ready for the first block
+            write_num(62, 0);
+            if has_ad then write_num(52, 1);
+            else write_num(52, 0); end if;
         end procedure;
 
         procedure send_block(s : string; is_ad : boolean) is
             variable flags : natural;
+            variable status_byte : std_logic_vector(7 downto 0);
         begin
-            if s'length > 0 then
-                write_hex(32, s);
-            end if;
+            if s'length > 0 then write_hex(32, s); end if;
             write_num(50, s'length/2);
-            if is_ad then
-                flags := 3;  -- AD, final AD block
-            else
-                flags := 2;  -- CT, final ciphertext block
-            end if;
+            if is_ad then flags := 3; else flags := 2; end if;
             write_num(51, flags);
             write_num(48, 2);
-            if is_ad then
-                wait_status(x"01", x"01");
+            wait_status(x"01", x"01");
+            read_byte(49, status_byte);
+            assert status_byte(3) = '0' or status_byte(2) = '1'
+                report "Unexpected wrapper error during block" severity failure;
+        end procedure;
+
+        procedure check_hidden is
+            variable b : std_logic_vector(7 downto 0);
+        begin
+            read_byte(53, b);
+            assert b = x"00" report "Result length visible before release" severity failure;
+            for i in 0 to 15 loop
+                read_byte(i, b);
+                assert b = x"00" report "Plaintext exposed before release" severity failure;
+            end loop;
+        end procedure;
+
+        procedure run_pass(ad_hex : string; ct_hex : string; release_pass : boolean) is
+            variable s : std_logic_vector(7 downto 0);
+        begin
+            if release_pass then write_num(48, 4);
+            else write_num(48, 3); end if;
+            wait_status(x"01", x"01");
+            if ad_hex'length > 0 then send_block(ad_hex, true); end if;
+            send_block(ct_hex, false);
+            wait_status(x"04", x"04");
+            read_byte(49, s);
+            if release_pass then
+                assert s(7)='1' and s(6)='1' and s(4)='1' and s(3)='0'
+                    report "Release pass failed: STATUS=" & to_hstring(s) severity failure;
             else
-                wait_status(x"04", x"04"); -- Transaction complete
+                assert s(7)='0' report "VERIFY incorrectly entered RELEASE mode" severity failure;
+                check_hidden;
             end if;
         end procedure;
 
-        procedure expect_status(auth_ok : boolean) is
+        procedure expect_verify(valid : boolean) is
             variable s : std_logic_vector(7 downto 0);
         begin
             read_byte(49, s);
-            assert s(2) = '1' report "Transaction DONE not set" severity failure;
-            assert s(3) = '0' report "Wrapper error flag set" severity failure;
-            if auth_ok then
-                assert s(4) = '1' and s(1) = '1'
-                    report "Expected authenticated valid result, STATUS=" &
-                    to_hstring(s) severity failure;
+            assert s(2)='1' report "VERIFY did not finish" severity failure;
+            if valid then
+                assert s(6)='1' and s(4)='1' and s(3)='0'
+                    report "Valid message rejected: STATUS=" & to_hstring(s) severity failure;
             else
-                assert s(4) = '0' and s(1) = '0'
-                    report "Corrupted tag unexpectedly accepted, STATUS=" &
-                    to_hstring(s) severity failure;
+                assert s(6)='0' and s(4)='0' and s(3)='1'
+                    report "Invalid message accepted: STATUS=" & to_hstring(s) severity failure;
             end if;
+            check_hidden;
         end procedure;
 
-        procedure expect_plaintext(s : string; valid : boolean) is
+        procedure expect_plaintext(s : string) is
             variable b : std_logic_vector(7 downto 0);
             variable n : natural;
         begin
             n := s'length/2;
             read_byte(53, b);
-            if valid then
-                assert to_integer(unsigned(b)) = n
-                    report "Wrong plaintext byte count" severity failure;
-            else
-                assert b = x"00" report "Invalid plaintext length not zero" severity failure;
-            end if;
+            assert to_integer(unsigned(b))=n
+                report "Wrong plaintext byte count" severity failure;
             for i in 0 to 15 loop
                 read_byte(i, b);
-                if valid and i < n then
-                    assert b = hex_byte(s, i)
-                        report "Plaintext mismatch at byte " & integer'image(i) &
-                        ": got " & to_hstring(b) severity failure;
+                if i < n then
+                    assert b=hex_byte(s,i)
+                        report "Plaintext mismatch at byte " & integer'image(i) severity failure;
                 else
-                    assert b = x"00"
-                        report "Plaintext should be hidden/zero at byte " &
-                        integer'image(i) severity failure;
+                    assert b=x"00" report "Nonzero padding/output" severity failure;
                 end if;
             end loop;
         end procedure;
 
-        procedure check_hidden_before_completion is
-            variable b : std_logic_vector(7 downto 0);
+        procedure reject_release is
+            variable s : std_logic_vector(7 downto 0);
         begin
-            read_byte(0, b);
-            assert b = x"00" report "Plaintext exposed before authentication" severity failure;
+            write_num(48, 4);
+            read_byte(49, s);
+            assert s(3)='1' and s(7)='0' and s(6)='0'
+                report "Unauthorized RELEASE was not rejected: STATUS=" & to_hstring(s)
+                severity failure;
+            check_hidden;
         end procedure;
 
     begin
-        report "START ADDITIONAL DECRYPT WRAPPER REGRESSION";
+        report "START TWO-PASS WRAPPER EXTRA REGRESSION";
         reset_dut;
-        initialize("4F9C278211BEC9316BF68F46EE8B2EC6", false);
-        check_hidden_before_completion;
-        send_block("", false);
-        expect_status(true);
-        expect_plaintext("", true);
-        tests := tests + 1;
-        report "PASS 1: empty message";
+        prepare("4F9C278211BEC9316BF68F46EE8B2EC6", false);
+        run_pass("", "", false); expect_verify(true);
+        run_pass("", "", true); expect_plaintext("");
+        tests:=tests+1; report "PASS 1: empty message";
 
-        -- Consecutive transactions without reset; stale plaintext must not leak.
-        initialize("9EAA915C9DD3245D77048F24D46D27A7", false);
-        check_hidden_before_completion;
-        send_block("E8C3DEEE246CC5EAE3E872313897A2BB", false);
-        expect_status(true);
-        expect_plaintext("202122232425262728292A2B2C2D2E2F", true);
-        tests := tests + 1;
-        report "PASS 2: 16-byte valid message, no reset";
+        -- Consecutive transactions without reset; no stale result may leak.
+        prepare("9EAA915C9DD3245D77048F24D46D27A7", false);
+        run_pass("", "E8C3DEEE246CC5EAE3E872313897A2BB", false); expect_verify(true);
+        run_pass("", "E8C3DEEE246CC5EAE3E872313897A2BB", true);
+        expect_plaintext("202122232425262728292A2B2C2D2E2F");
+        tests:=tests+1; report "PASS 2: valid transaction without reset";
 
-        initialize("5D576ABA1CD3E6FC704DE02AEDB79588", false);
-        check_hidden_before_completion;
-        send_block("E8", false);
-        expect_status(false);
-        expect_plaintext("", false);
-        tests := tests + 1;
-        report "PASS 3: invalid tag after valid message, no reset";
+        prepare("5D576ABA1CD3E6FC704DE02AEDB79588", false);
+        run_pass("", "E8", false); expect_verify(false); reject_release;
+        tests:=tests+1; report "PASS 3: invalid tag after valid transaction";
 
-        initialize("83AECC1DA0834A52940EC4BFCDDB6404", false);
-        check_hidden_before_completion;
-        send_block("E8C3DEEE246CC5EAE3E872313897A2", false);
-        expect_status(true);
-        expect_plaintext("202122232425262728292A2B2C2D2E", true);
-        tests := tests + 1;
-        report "PASS 4: 15-byte valid message after invalid tag";
+        prepare("83AECC1DA0834A52940EC4BFCDDB6404", false);
+        run_pass("", "E8C3DEEE246CC5EAE3E872313897A2", false); expect_verify(true);
+        run_pass("", "E8C3DEEE246CC5EAE3E872313897A2", true);
+        expect_plaintext("202122232425262728292A2B2C2D2E");
+        tests:=tests+1; report "PASS 4: valid 15-byte transaction after failure";
 
-        initialize("DD576ABA1CD3E6FC704DE02AEDB79588", false);
-        check_hidden_before_completion;
         reset_dut;
-        read_byte(49, status);
-        assert (status and x"1E") = x"00"
-            report "Reset did not clear result/auth/done/error status" severity failure;
-        expect_plaintext("", false);
-        tests := tests + 1;
-        report "PASS 5: reset clears plaintext and status";
+        read_byte(49,status);
+        assert (status and x"DE")=x"00"
+            report "Reset did not clear status" severity failure;
+        check_hidden;
+        tests:=tests+1; report "PASS 5: reset clears status and plaintext";
 
-        initialize("DD576ABA1CD3E6FC704DE02AEDB79588", false);
-        write_num(50, 17);
-        read_byte(49, status);
-        assert status(3) = '1'
-            report "Invalid DATA_BYTES=17 was not rejected" severity failure;
-        check_hidden_before_completion;
-        tests := tests + 1;
-        report "PASS 6: invalid 17-byte block rejected";
+        prepare("DD576ABA1CD3E6FC704DE02AEDB79588", false);
+        write_num(50,17);
+        read_byte(49,status);
+        assert status(3)='1'
+            report "Invalid DATA_BYTES=17 not rejected" severity failure;
+        tests:=tests+1; report "PASS 6: invalid block length rejected";
 
-        report "ALL " & integer'image(tests) &
-               " ADDITIONAL DECRYPT WRAPPER TESTS COMPLETED";
+        report "ALL " & integer'image(tests) & " TWO-PASS EXTRA TESTS PASSED";
         finish(0);
         wait;
     end process;
