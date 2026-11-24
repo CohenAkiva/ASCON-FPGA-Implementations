@@ -18,14 +18,7 @@ architecture sim of tb_wrapper_decrypt_core_metrics is
     constant KEY_HEX : string := "000102030405060708090A0B0C0D0E0F";
     constant NONCE_HEX : string := "101112131415161718191A1B1C1D1E1F";
 
-    -- VHDL-2008 external names: simulator must support hierarchical aliases.
-    alias mon_core_reset is << signal .tb_wrapper_decrypt_core_metrics.dut.mon_transaction_reset : std_logic >>;
-    alias mon_core_start is << signal .tb_wrapper_decrypt_core_metrics.dut.core_start_event : std_logic >>;
-    alias mon_core_stop is << signal .tb_wrapper_decrypt_core_metrics.dut.core_stop_event : std_logic >>;
-    alias mon_core_busy is << signal .tb_wrapper_decrypt_core_metrics.dut.core_processing : std_logic >>;
-    alias mon_core_latency is << signal .tb_wrapper_decrypt_core_metrics.dut.core_last_latency : std_logic_vector(31 downto 0) >>;
-    alias mon_core_active is << signal .tb_wrapper_decrypt_core_metrics.dut.core_last_active : std_logic_vector(31 downto 0) >>;
-    alias mon_core_total is << signal .tb_wrapper_decrypt_core_metrics.dut.core_total_active : std_logic_vector(31 downto 0) >>;
+
     function nibble(c : character) return natural is
     begin
         if c >= '0' and c <= '9' then
@@ -348,6 +341,16 @@ begin
     end process;
 
     core_scoreboard: process
+	
+	    -- VHDL-2008 external names: simulator must support hierarchical aliases.
+		alias mon_core_reset is << signal .tb_wrapper_decrypt_core_metrics.dut.mon_transaction_reset : std_logic >>;
+		alias mon_core_start is << signal .tb_wrapper_decrypt_core_metrics.dut.core_start_event : std_logic >>;
+		alias mon_core_stop is << signal .tb_wrapper_decrypt_core_metrics.dut.core_stop_event : std_logic >>;
+		alias mon_core_busy is << signal .tb_wrapper_decrypt_core_metrics.dut.core_processing : std_logic >>;
+		alias mon_core_latency is << signal .tb_wrapper_decrypt_core_metrics.dut.core_last_latency : std_logic_vector(31 downto 0) >>;
+		alias mon_core_active is << signal .tb_wrapper_decrypt_core_metrics.dut.core_last_active : std_logic_vector(31 downto 0) >>;
+		alias mon_core_total is << signal .tb_wrapper_decrypt_core_metrics.dut.core_total_active : std_logic_vector(31 downto 0) >>;
+	
         variable running : boolean := false;
         variable elapsed : natural := 0;
         variable active : natural := 0;
