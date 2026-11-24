@@ -1,0 +1,33 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2024.1 (win64) Build 5076996 Wed May 22 18:37:14 MDT 2024
+| Date         : Tue Nov 24 16:55:59 2026
+| Host         : LAPTOP-FJ60Q5H6 running 64-bit major release  (build 9200)
+| Command      : report_utilization -hierarchical -file C:/FPGA_Projects/ASCON-FPGA-Implementations/reports/decryption/20261124_165115/impl_hierarchical_utilization.rpt
+| Design       : wrapper
+| Device       : xc7a35tcpg236-1
+| Speed File   : -1
+| Design State : Routed
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Utilization Design Information
+
+Table of Contents
+-----------------
+1. Utilization by Hierarchy
+
+1. Utilization by Hierarchy
+---------------------------
+
++---------------+-------------------------+------------+------------+---------+------+------+--------+--------+------------+
+|    Instance   |          Module         | Total LUTs | Logic LUTs | LUTRAMs | SRLs |  FFs | RAMB36 | RAMB18 | DSP Blocks |
++---------------+-------------------------+------------+------------+---------+------+------+--------+--------+------------+
+| wrapper       |                   (top) |       2069 |       2069 |       0 |    0 | 2444 |      0 |      0 |          0 |
+|   (wrapper)   |                   (top) |        356 |        356 |       0 |    0 |  748 |      0 |      0 |          0 |
+|   u_ascon     | ASCON_DECRYPT_TOP_LEVEL |       1715 |       1715 |       0 |    0 | 1696 |      0 |      0 |          0 |
+|     (u_ascon) | ASCON_DECRYPT_TOP_LEVEL |        703 |        703 |       0 |    0 | 1043 |      0 |      0 |          0 |
+|     PERM_INST |       ASCON_PERMUTATION |       1013 |       1013 |       0 |    0 |  653 |      0 |      0 |          0 |
++---------------+-------------------------+------------+------------+---------+------+------+--------+--------+------------+
+* Note: The sum of lower-level cells may be larger than their parent cells total, due to cross-hierarchy LUT combining
+
+

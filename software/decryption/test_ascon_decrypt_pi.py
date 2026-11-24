@@ -43,7 +43,7 @@ class Interface:
         return obj
 
     def _in(self, pin):
-        obj = DigitalInputDevice(pin, pull_up=None, pin_factory=self.factory)
+        obj = DigitalInputDevice(pin, pull_up=None, active_state=True, pin_factory=self.factory)
         self.inputs.append(obj)
         return obj
 
@@ -87,6 +87,8 @@ class Interface:
         last = 0
         while time.monotonic() < deadline:
             last = self.read(49)
+            if last & 0x08:
+                raise RuntimeError(f"FPGA ERROR: STATUS=0x{last:02X}")
             if (last & mask) == expected:
                 return last
             time.sleep(0.005)

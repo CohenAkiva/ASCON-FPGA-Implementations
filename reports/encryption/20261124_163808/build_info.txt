@@ -1,0 +1,15 @@
+Branch: basic
+Source commit: 15328f4e1cbe695037201f577145071b68a59101
+Vivado: 2024.1
+Part: xc7a35tcpg236-1
+Target clock: 100 MHz
+Working tree changes at build start:
+ M README.md
+ M software/decryption/test_ascon_decrypt_pi.py
+ M software/decryption/test_ascon_decrypt_report.py
+ M software/encryption/ascon_kat_v2.py
+?? constraints/README.md
+?? rtl/README.md
+?? scripts/
+?? simulation/README.md
+?? software/README.md

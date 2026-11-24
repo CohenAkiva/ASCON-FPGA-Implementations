@@ -6,7 +6,6 @@ Supports KAT records with PT length <= 16 bytes; AD can span blocks.
 import argparse
 import datetime
 import pathlib
-import time
 from test_ascon_decrypt_pi import Interface
 
 
@@ -31,21 +30,12 @@ def parse_kat(path):
                    ad=bytes.fromhex(fields['AD']), ct=ct_tag[:-16], tag=ct_tag[-16:])
 
 
-def u32(bus, base):
-    return sum(bus.read(base+i) << (8*i) for i in range(4))
-
-
-def send_command(bus, command, command_cycles):
-    before = u32(bus, 58)
+def send_command(bus, command):
     bus.write(48, command)
-    # A command finishes well before a Raspberry Pi GPIO write returns.
-    # Polling READY after the command strobe is released.
     bus.wait_status(0x01, 0x01)
-    command_cycles.append(u32(bus, 54))
 
 
 def run_one(bus, item, corrupt=False):
-    cycles = []
     tag = item['tag']
     if corrupt:
         tag = bytes([tag[0] ^ 0x80]) + tag[1:]
@@ -55,22 +45,21 @@ def run_one(bus, item, corrupt=False):
     bus.write_bytes(32, tag)
     bus.write(62, 0)
     bus.write(52, int(bool(item['ad'])))
-    send_command(bus, 1, cycles)
+    send_command(bus, 1)
     for start in range(0, len(item['ad']), 16):
         chunk = item['ad'][start:start+16]
         last_ad = start + 16 >= len(item['ad'])
         bus.write_bytes(32, chunk)
         bus.write(50, len(chunk))
         bus.write(51, 1 | (2 if last_ad else 0))
-        send_command(bus, 2, cycles)
+        send_command(bus, 2)
     bus.write_bytes(32, item['ct'])
     bus.write(50, len(item['ct']))
     bus.write(51, 2)
-    send_command(bus, 2, cycles)
+    send_command(bus, 2)
     status = bus.read(49)
     length = bus.read(53)
     result = bytes(bus.read(i) for i in range(16))
-    total = u32(bus, 58)
     authenticated = bool(status & 0x10)
     valid = bool(status & 0x02)
     done = bool(status & 0x04)
@@ -81,7 +70,7 @@ def run_one(bus, item, corrupt=False):
         passed = (done and not error and authenticated and valid
                   and length == len(item['pt']) and result[:length] == item['pt'])
     return dict(passed=passed, status=status, length=length, result=result,
-                cycles=cycles, total=total, authenticated=authenticated,
+                authenticated=authenticated,
                 valid=valid, done=done, error=error)
 
 
@@ -107,11 +96,8 @@ def describe(item, result, negative):
     out.append(f"  AUTH      : {0 if negative else 1}")
     out.append('VERIFICATION:')
     out.append(f"  Result    : {'PASS' if result['passed'] else 'FAIL'}")
-    out.append('PERFORMANCE (FPGA active cycles, excluding GPIO transfers):')
-    out.append(f"  Command cycles: {result['cycles']}")
-    out.append(f"  Total active cycles: {result['total']}")
     out.append('=' * 60)
-    out.append(f"Count={item['count']} AD={len(item['ad'])} PT={len(item['pt'])} {'NEGATIVE' if negative else 'POSITIVE'} {'PASS' if result['passed'] else 'FAIL'} cycles={result['cycles']} total_active={result['total']}")
+    out.append(f"Count={item['count']} AD={len(item['ad'])} PT={len(item['pt'])} {'NEGATIVE' if negative else 'POSITIVE'} {'PASS' if result['passed'] else 'FAIL'}")
     return '\n'.join(out)
 
 
@@ -137,7 +123,7 @@ def main():
     log = [f'ASCON DECRYPTION HARDWARE KAT REPORT | {datetime.datetime.now().isoformat(timespec="seconds")}',
            'Tested via Raspberry Pi GPIO and Basys3 wrapper_decrypt.',
            'Scope: <=16 bytes ciphertext per transaction; longer AD supported.',
-           'Performance is FPGA active cycles, not GPIO wall-clock time.', '']
+           'Basic implementation: no hardware cycle counters.', '']
     passed = failed = 0
     bus = Interface(args.hold_ms / 1000)
     try:

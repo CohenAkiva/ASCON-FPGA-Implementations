@@ -1,0 +1,32 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2024.1 (win64) Build 5076996 Wed May 22 18:37:14 MDT 2024
+| Date         : Tue Nov 24 16:53:45 2026
+| Host         : LAPTOP-FJ60Q5H6 running 64-bit major release  (build 9200)
+| Command      : report_utilization -hierarchical -file C:/FPGA_Projects/ASCON-FPGA-Implementations/reports/decryption/20261124_165115/synth_hierarchical_utilization.rpt
+| Design       : wrapper
+| Device       : xc7a35tcpg236-1
+| Speed File   : -1
+| Design State : Synthesized
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Utilization Design Information
+
+Table of Contents
+-----------------
+1. Utilization by Hierarchy
+
+1. Utilization by Hierarchy
+---------------------------
+
++---------------+-------------------------+------------+------------+---------+------+------+--------+--------+------------+
+|    Instance   |          Module         | Total LUTs | Logic LUTs | LUTRAMs | SRLs |  FFs | RAMB36 | RAMB18 | DSP Blocks |
++---------------+-------------------------+------------+------------+---------+------+------+--------+--------+------------+
+| wrapper       |                   (top) |       2101 |       2101 |       0 |    0 | 2444 |      0 |      0 |          0 |
+|   (wrapper)   |                   (top) |        380 |        380 |       0 |    0 |  748 |      0 |      0 |          0 |
+|   u_ascon     | ASCON_DECRYPT_TOP_LEVEL |       1721 |       1721 |       0 |    0 | 1696 |      0 |      0 |          0 |
+|     (u_ascon) | ASCON_DECRYPT_TOP_LEVEL |        705 |        705 |       0 |    0 | 1043 |      0 |      0 |          0 |
+|     PERM_INST |       ASCON_PERMUTATION |       1016 |       1016 |       0 |    0 |  653 |      0 |      0 |          0 |
++---------------+-------------------------+------------+------------+---------+------+------+--------+--------+------------+
+
+

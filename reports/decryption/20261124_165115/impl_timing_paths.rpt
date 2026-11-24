@@ -1,0 +1,1857 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2024.1 (win64) Build 5076996 Wed May 22 18:37:14 MDT 2024
+| Date         : Tue Nov 24 16:55:59 2026
+| Host         : LAPTOP-FJ60Q5H6 running 64-bit major release  (build 9200)
+| Command      : report_timing -max_paths 20 -file C:/FPGA_Projects/ASCON-FPGA-Implementations/reports/decryption/20261124_165115/impl_timing_paths.rpt
+| Design       : wrapper
+| Device       : 7a35t-cpg236
+| Speed File   : -1  PRODUCTION 1.23 2018-06-13
+| Design State : Routed
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Report
+
+Slack (MET) :             2.868ns  (required time - arrival time)
+  Source:                 u_ascon/PERM_INST/STATE_OUT_reg[317]/C
+                            (rising edge-triggered cell FDCE clocked by CLK  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            u_ascon/DATA_OUT_reg[5]/CE
+                            (rising edge-triggered cell FDCE clocked by CLK  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             CLK
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (CLK rise@10.000ns - CLK rise@0.000ns)
+  Data Path Delay:        6.852ns  (logic 2.965ns (43.272%)  route 3.887ns (56.728%))
+  Logic Levels:           14  (CARRY4=11 LUT4=1 LUT6=2)
+  Clock Path Skew:        -0.040ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.954ns = ( 14.954 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.261ns
+    Clock Pessimism Removal (CPR):    0.267ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock CLK rise edge)        0.000     0.000 r  
+    W5                                                0.000     0.000 r  CLK (IN)
+                         net (fo=0)                   0.000     0.000    CLK
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  CLK_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    CLK_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  CLK_IBUF_BUFG_inst/O
+                         net (fo=2444, routed)        1.740     5.261    u_ascon/PERM_INST/CLK_IBUF_BUFG
+    SLICE_X18Y104        FDCE                                         r  u_ascon/PERM_INST/STATE_OUT_reg[317]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X18Y104        FDCE (Prop_fdce_C_Q)         0.419     5.680 r  u_ascon/PERM_INST/STATE_OUT_reg[317]/Q
+                         net (fo=2, routed)           0.828     6.508    u_ascon/PERM_INST/perm_state_out[317]
+    SLICE_X19Y102        LUT6 (Prop_lut6_I0_O)        0.297     6.805 r  u_ascon/PERM_INST/DATA_OUT[127]_i_98/O
+                         net (fo=1, routed)           0.976     7.781    u_ascon/PERM_INST/DATA_OUT[127]_i_98_n_0
+    SLICE_X34Y100        LUT4 (Prop_lut4_I0_O)        0.124     7.905 r  u_ascon/PERM_INST/DATA_OUT[127]_i_90/O
+                         net (fo=1, routed)           0.000     7.905    u_ascon/PERM_INST/DATA_OUT[127]_i_90_n_0
+    SLICE_X34Y100        CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     8.438 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_79/CO[3]
+                         net (fo=1, routed)           0.000     8.438    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_79_n_0
+    SLICE_X34Y101        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.555 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_70/CO[3]
+                         net (fo=1, routed)           0.000     8.555    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_70_n_0
+    SLICE_X34Y102        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.672 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_61/CO[3]
+                         net (fo=1, routed)           0.000     8.672    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_61_n_0
+    SLICE_X34Y103        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.789 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_52/CO[3]
+                         net (fo=1, routed)           0.000     8.789    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_52_n_0
+    SLICE_X34Y104        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.906 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_43/CO[3]
+                         net (fo=1, routed)           0.000     8.906    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_43_n_0
+    SLICE_X34Y105        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.023 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_34/CO[3]
+                         net (fo=1, routed)           0.000     9.023    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_34_n_0
+    SLICE_X34Y106        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.140 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_25/CO[3]
+                         net (fo=1, routed)           0.000     9.140    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_25_n_0
+    SLICE_X34Y107        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.257 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_16/CO[3]
+                         net (fo=1, routed)           0.000     9.257    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_16_n_0
+    SLICE_X34Y108        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.374 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_9/CO[3]
+                         net (fo=1, routed)           0.000     9.374    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_9_n_0
+    SLICE_X34Y109        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.491 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_5/CO[3]
+                         net (fo=1, routed)           0.000     9.491    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_5_n_0
+    SLICE_X34Y110        CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.229     9.720 f  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_3/CO[2]
+                         net (fo=2, routed)           0.820    10.541    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_3_n_1
+    SLICE_X29Y119        LUT6 (Prop_lut6_I0_O)        0.310    10.851 r  u_ascon/PERM_INST/DATA_OUT[127]_i_1/O
+                         net (fo=128, routed)         1.263    12.113    u_ascon/PERM_INST_n_0
+    SLICE_X13Y109        FDCE                                         r  u_ascon/DATA_OUT_reg[5]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock CLK rise edge)       10.000    10.000 r  
+    W5                                                0.000    10.000 r  CLK (IN)
+                         net (fo=0)                   0.000    10.000    CLK
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  CLK_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    CLK_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  CLK_IBUF_BUFG_inst/O
+                         net (fo=2444, routed)        1.613    14.954    u_ascon/CLK_IBUF_BUFG
+    SLICE_X13Y109        FDCE                                         r  u_ascon/DATA_OUT_reg[5]/C
+                         clock pessimism              0.267    15.221    
+                         clock uncertainty           -0.035    15.186    
+    SLICE_X13Y109        FDCE (Setup_fdce_C_CE)      -0.205    14.981    u_ascon/DATA_OUT_reg[5]
+  -------------------------------------------------------------------
+                         required time                         14.981    
+                         arrival time                         -12.113    
+  -------------------------------------------------------------------
+                         slack                                  2.868    
+
+Slack (MET) :             2.881ns  (required time - arrival time)
+  Source:                 u_ascon/PERM_INST/STATE_OUT_reg[317]/C
+                            (rising edge-triggered cell FDCE clocked by CLK  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            u_ascon/DATA_OUT_reg[10]/CE
+                            (rising edge-triggered cell FDCE clocked by CLK  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             CLK
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (CLK rise@10.000ns - CLK rise@0.000ns)
+  Data Path Delay:        6.876ns  (logic 2.965ns (43.124%)  route 3.911ns (56.876%))
+  Logic Levels:           14  (CARRY4=11 LUT4=1 LUT6=2)
+  Clock Path Skew:        -0.039ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.955ns = ( 14.955 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.261ns
+    Clock Pessimism Removal (CPR):    0.267ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock CLK rise edge)        0.000     0.000 r  
+    W5                                                0.000     0.000 r  CLK (IN)
+                         net (fo=0)                   0.000     0.000    CLK
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  CLK_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    CLK_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  CLK_IBUF_BUFG_inst/O
+                         net (fo=2444, routed)        1.740     5.261    u_ascon/PERM_INST/CLK_IBUF_BUFG
+    SLICE_X18Y104        FDCE                                         r  u_ascon/PERM_INST/STATE_OUT_reg[317]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X18Y104        FDCE (Prop_fdce_C_Q)         0.419     5.680 r  u_ascon/PERM_INST/STATE_OUT_reg[317]/Q
+                         net (fo=2, routed)           0.828     6.508    u_ascon/PERM_INST/perm_state_out[317]
+    SLICE_X19Y102        LUT6 (Prop_lut6_I0_O)        0.297     6.805 r  u_ascon/PERM_INST/DATA_OUT[127]_i_98/O
+                         net (fo=1, routed)           0.976     7.781    u_ascon/PERM_INST/DATA_OUT[127]_i_98_n_0
+    SLICE_X34Y100        LUT4 (Prop_lut4_I0_O)        0.124     7.905 r  u_ascon/PERM_INST/DATA_OUT[127]_i_90/O
+                         net (fo=1, routed)           0.000     7.905    u_ascon/PERM_INST/DATA_OUT[127]_i_90_n_0
+    SLICE_X34Y100        CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     8.438 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_79/CO[3]
+                         net (fo=1, routed)           0.000     8.438    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_79_n_0
+    SLICE_X34Y101        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.555 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_70/CO[3]
+                         net (fo=1, routed)           0.000     8.555    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_70_n_0
+    SLICE_X34Y102        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.672 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_61/CO[3]
+                         net (fo=1, routed)           0.000     8.672    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_61_n_0
+    SLICE_X34Y103        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.789 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_52/CO[3]
+                         net (fo=1, routed)           0.000     8.789    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_52_n_0
+    SLICE_X34Y104        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.906 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_43/CO[3]
+                         net (fo=1, routed)           0.000     8.906    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_43_n_0
+    SLICE_X34Y105        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.023 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_34/CO[3]
+                         net (fo=1, routed)           0.000     9.023    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_34_n_0
+    SLICE_X34Y106        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.140 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_25/CO[3]
+                         net (fo=1, routed)           0.000     9.140    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_25_n_0
+    SLICE_X34Y107        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.257 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_16/CO[3]
+                         net (fo=1, routed)           0.000     9.257    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_16_n_0
+    SLICE_X34Y108        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.374 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_9/CO[3]
+                         net (fo=1, routed)           0.000     9.374    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_9_n_0
+    SLICE_X34Y109        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.491 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_5/CO[3]
+                         net (fo=1, routed)           0.000     9.491    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_5_n_0
+    SLICE_X34Y110        CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.229     9.720 f  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_3/CO[2]
+                         net (fo=2, routed)           0.820    10.541    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_3_n_1
+    SLICE_X29Y119        LUT6 (Prop_lut6_I0_O)        0.310    10.851 r  u_ascon/PERM_INST/DATA_OUT[127]_i_1/O
+                         net (fo=128, routed)         1.286    12.137    u_ascon/PERM_INST_n_0
+    SLICE_X14Y107        FDCE                                         r  u_ascon/DATA_OUT_reg[10]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock CLK rise edge)       10.000    10.000 r  
+    W5                                                0.000    10.000 r  CLK (IN)
+                         net (fo=0)                   0.000    10.000    CLK
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  CLK_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    CLK_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  CLK_IBUF_BUFG_inst/O
+                         net (fo=2444, routed)        1.614    14.955    u_ascon/CLK_IBUF_BUFG
+    SLICE_X14Y107        FDCE                                         r  u_ascon/DATA_OUT_reg[10]/C
+                         clock pessimism              0.267    15.222    
+                         clock uncertainty           -0.035    15.187    
+    SLICE_X14Y107        FDCE (Setup_fdce_C_CE)      -0.169    15.018    u_ascon/DATA_OUT_reg[10]
+  -------------------------------------------------------------------
+                         required time                         15.018    
+                         arrival time                         -12.137    
+  -------------------------------------------------------------------
+                         slack                                  2.881    
+
+Slack (MET) :             2.881ns  (required time - arrival time)
+  Source:                 u_ascon/PERM_INST/STATE_OUT_reg[317]/C
+                            (rising edge-triggered cell FDCE clocked by CLK  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            u_ascon/DATA_OUT_reg[11]/CE
+                            (rising edge-triggered cell FDCE clocked by CLK  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             CLK
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (CLK rise@10.000ns - CLK rise@0.000ns)
+  Data Path Delay:        6.876ns  (logic 2.965ns (43.124%)  route 3.911ns (56.876%))
+  Logic Levels:           14  (CARRY4=11 LUT4=1 LUT6=2)
+  Clock Path Skew:        -0.039ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.955ns = ( 14.955 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.261ns
+    Clock Pessimism Removal (CPR):    0.267ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock CLK rise edge)        0.000     0.000 r  
+    W5                                                0.000     0.000 r  CLK (IN)
+                         net (fo=0)                   0.000     0.000    CLK
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  CLK_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    CLK_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  CLK_IBUF_BUFG_inst/O
+                         net (fo=2444, routed)        1.740     5.261    u_ascon/PERM_INST/CLK_IBUF_BUFG
+    SLICE_X18Y104        FDCE                                         r  u_ascon/PERM_INST/STATE_OUT_reg[317]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X18Y104        FDCE (Prop_fdce_C_Q)         0.419     5.680 r  u_ascon/PERM_INST/STATE_OUT_reg[317]/Q
+                         net (fo=2, routed)           0.828     6.508    u_ascon/PERM_INST/perm_state_out[317]
+    SLICE_X19Y102        LUT6 (Prop_lut6_I0_O)        0.297     6.805 r  u_ascon/PERM_INST/DATA_OUT[127]_i_98/O
+                         net (fo=1, routed)           0.976     7.781    u_ascon/PERM_INST/DATA_OUT[127]_i_98_n_0
+    SLICE_X34Y100        LUT4 (Prop_lut4_I0_O)        0.124     7.905 r  u_ascon/PERM_INST/DATA_OUT[127]_i_90/O
+                         net (fo=1, routed)           0.000     7.905    u_ascon/PERM_INST/DATA_OUT[127]_i_90_n_0
+    SLICE_X34Y100        CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     8.438 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_79/CO[3]
+                         net (fo=1, routed)           0.000     8.438    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_79_n_0
+    SLICE_X34Y101        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.555 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_70/CO[3]
+                         net (fo=1, routed)           0.000     8.555    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_70_n_0
+    SLICE_X34Y102        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.672 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_61/CO[3]
+                         net (fo=1, routed)           0.000     8.672    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_61_n_0
+    SLICE_X34Y103        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.789 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_52/CO[3]
+                         net (fo=1, routed)           0.000     8.789    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_52_n_0
+    SLICE_X34Y104        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.906 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_43/CO[3]
+                         net (fo=1, routed)           0.000     8.906    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_43_n_0
+    SLICE_X34Y105        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.023 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_34/CO[3]
+                         net (fo=1, routed)           0.000     9.023    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_34_n_0
+    SLICE_X34Y106        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.140 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_25/CO[3]
+                         net (fo=1, routed)           0.000     9.140    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_25_n_0
+    SLICE_X34Y107        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.257 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_16/CO[3]
+                         net (fo=1, routed)           0.000     9.257    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_16_n_0
+    SLICE_X34Y108        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.374 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_9/CO[3]
+                         net (fo=1, routed)           0.000     9.374    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_9_n_0
+    SLICE_X34Y109        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.491 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_5/CO[3]
+                         net (fo=1, routed)           0.000     9.491    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_5_n_0
+    SLICE_X34Y110        CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.229     9.720 f  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_3/CO[2]
+                         net (fo=2, routed)           0.820    10.541    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_3_n_1
+    SLICE_X29Y119        LUT6 (Prop_lut6_I0_O)        0.310    10.851 r  u_ascon/PERM_INST/DATA_OUT[127]_i_1/O
+                         net (fo=128, routed)         1.286    12.137    u_ascon/PERM_INST_n_0
+    SLICE_X14Y107        FDCE                                         r  u_ascon/DATA_OUT_reg[11]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock CLK rise edge)       10.000    10.000 r  
+    W5                                                0.000    10.000 r  CLK (IN)
+                         net (fo=0)                   0.000    10.000    CLK
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  CLK_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    CLK_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  CLK_IBUF_BUFG_inst/O
+                         net (fo=2444, routed)        1.614    14.955    u_ascon/CLK_IBUF_BUFG
+    SLICE_X14Y107        FDCE                                         r  u_ascon/DATA_OUT_reg[11]/C
+                         clock pessimism              0.267    15.222    
+                         clock uncertainty           -0.035    15.187    
+    SLICE_X14Y107        FDCE (Setup_fdce_C_CE)      -0.169    15.018    u_ascon/DATA_OUT_reg[11]
+  -------------------------------------------------------------------
+                         required time                         15.018    
+                         arrival time                         -12.137    
+  -------------------------------------------------------------------
+                         slack                                  2.881    
+
+Slack (MET) :             2.881ns  (required time - arrival time)
+  Source:                 u_ascon/PERM_INST/STATE_OUT_reg[317]/C
+                            (rising edge-triggered cell FDCE clocked by CLK  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            u_ascon/DATA_OUT_reg[1]/CE
+                            (rising edge-triggered cell FDCE clocked by CLK  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             CLK
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (CLK rise@10.000ns - CLK rise@0.000ns)
+  Data Path Delay:        6.876ns  (logic 2.965ns (43.124%)  route 3.911ns (56.876%))
+  Logic Levels:           14  (CARRY4=11 LUT4=1 LUT6=2)
+  Clock Path Skew:        -0.039ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.955ns = ( 14.955 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.261ns
+    Clock Pessimism Removal (CPR):    0.267ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock CLK rise edge)        0.000     0.000 r  
+    W5                                                0.000     0.000 r  CLK (IN)
+                         net (fo=0)                   0.000     0.000    CLK
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  CLK_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    CLK_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  CLK_IBUF_BUFG_inst/O
+                         net (fo=2444, routed)        1.740     5.261    u_ascon/PERM_INST/CLK_IBUF_BUFG
+    SLICE_X18Y104        FDCE                                         r  u_ascon/PERM_INST/STATE_OUT_reg[317]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X18Y104        FDCE (Prop_fdce_C_Q)         0.419     5.680 r  u_ascon/PERM_INST/STATE_OUT_reg[317]/Q
+                         net (fo=2, routed)           0.828     6.508    u_ascon/PERM_INST/perm_state_out[317]
+    SLICE_X19Y102        LUT6 (Prop_lut6_I0_O)        0.297     6.805 r  u_ascon/PERM_INST/DATA_OUT[127]_i_98/O
+                         net (fo=1, routed)           0.976     7.781    u_ascon/PERM_INST/DATA_OUT[127]_i_98_n_0
+    SLICE_X34Y100        LUT4 (Prop_lut4_I0_O)        0.124     7.905 r  u_ascon/PERM_INST/DATA_OUT[127]_i_90/O
+                         net (fo=1, routed)           0.000     7.905    u_ascon/PERM_INST/DATA_OUT[127]_i_90_n_0
+    SLICE_X34Y100        CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     8.438 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_79/CO[3]
+                         net (fo=1, routed)           0.000     8.438    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_79_n_0
+    SLICE_X34Y101        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.555 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_70/CO[3]
+                         net (fo=1, routed)           0.000     8.555    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_70_n_0
+    SLICE_X34Y102        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.672 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_61/CO[3]
+                         net (fo=1, routed)           0.000     8.672    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_61_n_0
+    SLICE_X34Y103        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.789 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_52/CO[3]
+                         net (fo=1, routed)           0.000     8.789    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_52_n_0
+    SLICE_X34Y104        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.906 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_43/CO[3]
+                         net (fo=1, routed)           0.000     8.906    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_43_n_0
+    SLICE_X34Y105        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.023 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_34/CO[3]
+                         net (fo=1, routed)           0.000     9.023    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_34_n_0
+    SLICE_X34Y106        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.140 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_25/CO[3]
+                         net (fo=1, routed)           0.000     9.140    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_25_n_0
+    SLICE_X34Y107        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.257 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_16/CO[3]
+                         net (fo=1, routed)           0.000     9.257    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_16_n_0
+    SLICE_X34Y108        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.374 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_9/CO[3]
+                         net (fo=1, routed)           0.000     9.374    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_9_n_0
+    SLICE_X34Y109        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.491 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_5/CO[3]
+                         net (fo=1, routed)           0.000     9.491    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_5_n_0
+    SLICE_X34Y110        CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.229     9.720 f  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_3/CO[2]
+                         net (fo=2, routed)           0.820    10.541    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_3_n_1
+    SLICE_X29Y119        LUT6 (Prop_lut6_I0_O)        0.310    10.851 r  u_ascon/PERM_INST/DATA_OUT[127]_i_1/O
+                         net (fo=128, routed)         1.286    12.137    u_ascon/PERM_INST_n_0
+    SLICE_X14Y107        FDCE                                         r  u_ascon/DATA_OUT_reg[1]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock CLK rise edge)       10.000    10.000 r  
+    W5                                                0.000    10.000 r  CLK (IN)
+                         net (fo=0)                   0.000    10.000    CLK
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  CLK_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    CLK_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  CLK_IBUF_BUFG_inst/O
+                         net (fo=2444, routed)        1.614    14.955    u_ascon/CLK_IBUF_BUFG
+    SLICE_X14Y107        FDCE                                         r  u_ascon/DATA_OUT_reg[1]/C
+                         clock pessimism              0.267    15.222    
+                         clock uncertainty           -0.035    15.187    
+    SLICE_X14Y107        FDCE (Setup_fdce_C_CE)      -0.169    15.018    u_ascon/DATA_OUT_reg[1]
+  -------------------------------------------------------------------
+                         required time                         15.018    
+                         arrival time                         -12.137    
+  -------------------------------------------------------------------
+                         slack                                  2.881    
+
+Slack (MET) :             2.881ns  (required time - arrival time)
+  Source:                 u_ascon/PERM_INST/STATE_OUT_reg[317]/C
+                            (rising edge-triggered cell FDCE clocked by CLK  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            u_ascon/DATA_OUT_reg[6]/CE
+                            (rising edge-triggered cell FDCE clocked by CLK  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             CLK
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (CLK rise@10.000ns - CLK rise@0.000ns)
+  Data Path Delay:        6.876ns  (logic 2.965ns (43.124%)  route 3.911ns (56.876%))
+  Logic Levels:           14  (CARRY4=11 LUT4=1 LUT6=2)
+  Clock Path Skew:        -0.039ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.955ns = ( 14.955 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.261ns
+    Clock Pessimism Removal (CPR):    0.267ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock CLK rise edge)        0.000     0.000 r  
+    W5                                                0.000     0.000 r  CLK (IN)
+                         net (fo=0)                   0.000     0.000    CLK
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  CLK_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    CLK_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  CLK_IBUF_BUFG_inst/O
+                         net (fo=2444, routed)        1.740     5.261    u_ascon/PERM_INST/CLK_IBUF_BUFG
+    SLICE_X18Y104        FDCE                                         r  u_ascon/PERM_INST/STATE_OUT_reg[317]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X18Y104        FDCE (Prop_fdce_C_Q)         0.419     5.680 r  u_ascon/PERM_INST/STATE_OUT_reg[317]/Q
+                         net (fo=2, routed)           0.828     6.508    u_ascon/PERM_INST/perm_state_out[317]
+    SLICE_X19Y102        LUT6 (Prop_lut6_I0_O)        0.297     6.805 r  u_ascon/PERM_INST/DATA_OUT[127]_i_98/O
+                         net (fo=1, routed)           0.976     7.781    u_ascon/PERM_INST/DATA_OUT[127]_i_98_n_0
+    SLICE_X34Y100        LUT4 (Prop_lut4_I0_O)        0.124     7.905 r  u_ascon/PERM_INST/DATA_OUT[127]_i_90/O
+                         net (fo=1, routed)           0.000     7.905    u_ascon/PERM_INST/DATA_OUT[127]_i_90_n_0
+    SLICE_X34Y100        CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     8.438 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_79/CO[3]
+                         net (fo=1, routed)           0.000     8.438    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_79_n_0
+    SLICE_X34Y101        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.555 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_70/CO[3]
+                         net (fo=1, routed)           0.000     8.555    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_70_n_0
+    SLICE_X34Y102        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.672 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_61/CO[3]
+                         net (fo=1, routed)           0.000     8.672    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_61_n_0
+    SLICE_X34Y103        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.789 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_52/CO[3]
+                         net (fo=1, routed)           0.000     8.789    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_52_n_0
+    SLICE_X34Y104        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.906 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_43/CO[3]
+                         net (fo=1, routed)           0.000     8.906    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_43_n_0
+    SLICE_X34Y105        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.023 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_34/CO[3]
+                         net (fo=1, routed)           0.000     9.023    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_34_n_0
+    SLICE_X34Y106        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.140 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_25/CO[3]
+                         net (fo=1, routed)           0.000     9.140    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_25_n_0
+    SLICE_X34Y107        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.257 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_16/CO[3]
+                         net (fo=1, routed)           0.000     9.257    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_16_n_0
+    SLICE_X34Y108        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.374 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_9/CO[3]
+                         net (fo=1, routed)           0.000     9.374    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_9_n_0
+    SLICE_X34Y109        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.491 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_5/CO[3]
+                         net (fo=1, routed)           0.000     9.491    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_5_n_0
+    SLICE_X34Y110        CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.229     9.720 f  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_3/CO[2]
+                         net (fo=2, routed)           0.820    10.541    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_3_n_1
+    SLICE_X29Y119        LUT6 (Prop_lut6_I0_O)        0.310    10.851 r  u_ascon/PERM_INST/DATA_OUT[127]_i_1/O
+                         net (fo=128, routed)         1.286    12.137    u_ascon/PERM_INST_n_0
+    SLICE_X14Y107        FDCE                                         r  u_ascon/DATA_OUT_reg[6]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock CLK rise edge)       10.000    10.000 r  
+    W5                                                0.000    10.000 r  CLK (IN)
+                         net (fo=0)                   0.000    10.000    CLK
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  CLK_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    CLK_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  CLK_IBUF_BUFG_inst/O
+                         net (fo=2444, routed)        1.614    14.955    u_ascon/CLK_IBUF_BUFG
+    SLICE_X14Y107        FDCE                                         r  u_ascon/DATA_OUT_reg[6]/C
+                         clock pessimism              0.267    15.222    
+                         clock uncertainty           -0.035    15.187    
+    SLICE_X14Y107        FDCE (Setup_fdce_C_CE)      -0.169    15.018    u_ascon/DATA_OUT_reg[6]
+  -------------------------------------------------------------------
+                         required time                         15.018    
+                         arrival time                         -12.137    
+  -------------------------------------------------------------------
+                         slack                                  2.881    
+
+Slack (MET) :             2.900ns  (required time - arrival time)
+  Source:                 u_ascon/PERM_INST/STATE_OUT_reg[317]/C
+                            (rising edge-triggered cell FDCE clocked by CLK  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            u_ascon/DATA_OUT_reg[12]/CE
+                            (rising edge-triggered cell FDCE clocked by CLK  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             CLK
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (CLK rise@10.000ns - CLK rise@0.000ns)
+  Data Path Delay:        6.857ns  (logic 2.965ns (43.240%)  route 3.892ns (56.760%))
+  Logic Levels:           14  (CARRY4=11 LUT4=1 LUT6=2)
+  Clock Path Skew:        -0.039ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.955ns = ( 14.955 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.261ns
+    Clock Pessimism Removal (CPR):    0.267ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock CLK rise edge)        0.000     0.000 r  
+    W5                                                0.000     0.000 r  CLK (IN)
+                         net (fo=0)                   0.000     0.000    CLK
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  CLK_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    CLK_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  CLK_IBUF_BUFG_inst/O
+                         net (fo=2444, routed)        1.740     5.261    u_ascon/PERM_INST/CLK_IBUF_BUFG
+    SLICE_X18Y104        FDCE                                         r  u_ascon/PERM_INST/STATE_OUT_reg[317]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X18Y104        FDCE (Prop_fdce_C_Q)         0.419     5.680 r  u_ascon/PERM_INST/STATE_OUT_reg[317]/Q
+                         net (fo=2, routed)           0.828     6.508    u_ascon/PERM_INST/perm_state_out[317]
+    SLICE_X19Y102        LUT6 (Prop_lut6_I0_O)        0.297     6.805 r  u_ascon/PERM_INST/DATA_OUT[127]_i_98/O
+                         net (fo=1, routed)           0.976     7.781    u_ascon/PERM_INST/DATA_OUT[127]_i_98_n_0
+    SLICE_X34Y100        LUT4 (Prop_lut4_I0_O)        0.124     7.905 r  u_ascon/PERM_INST/DATA_OUT[127]_i_90/O
+                         net (fo=1, routed)           0.000     7.905    u_ascon/PERM_INST/DATA_OUT[127]_i_90_n_0
+    SLICE_X34Y100        CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     8.438 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_79/CO[3]
+                         net (fo=1, routed)           0.000     8.438    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_79_n_0
+    SLICE_X34Y101        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.555 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_70/CO[3]
+                         net (fo=1, routed)           0.000     8.555    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_70_n_0
+    SLICE_X34Y102        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.672 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_61/CO[3]
+                         net (fo=1, routed)           0.000     8.672    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_61_n_0
+    SLICE_X34Y103        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.789 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_52/CO[3]
+                         net (fo=1, routed)           0.000     8.789    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_52_n_0
+    SLICE_X34Y104        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.906 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_43/CO[3]
+                         net (fo=1, routed)           0.000     8.906    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_43_n_0
+    SLICE_X34Y105        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.023 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_34/CO[3]
+                         net (fo=1, routed)           0.000     9.023    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_34_n_0
+    SLICE_X34Y106        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.140 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_25/CO[3]
+                         net (fo=1, routed)           0.000     9.140    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_25_n_0
+    SLICE_X34Y107        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.257 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_16/CO[3]
+                         net (fo=1, routed)           0.000     9.257    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_16_n_0
+    SLICE_X34Y108        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.374 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_9/CO[3]
+                         net (fo=1, routed)           0.000     9.374    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_9_n_0
+    SLICE_X34Y109        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.491 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_5/CO[3]
+                         net (fo=1, routed)           0.000     9.491    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_5_n_0
+    SLICE_X34Y110        CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.229     9.720 f  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_3/CO[2]
+                         net (fo=2, routed)           0.820    10.541    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_3_n_1
+    SLICE_X29Y119        LUT6 (Prop_lut6_I0_O)        0.310    10.851 r  u_ascon/PERM_INST/DATA_OUT[127]_i_1/O
+                         net (fo=128, routed)         1.268    12.118    u_ascon/PERM_INST_n_0
+    SLICE_X14Y108        FDCE                                         r  u_ascon/DATA_OUT_reg[12]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock CLK rise edge)       10.000    10.000 r  
+    W5                                                0.000    10.000 r  CLK (IN)
+                         net (fo=0)                   0.000    10.000    CLK
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  CLK_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    CLK_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  CLK_IBUF_BUFG_inst/O
+                         net (fo=2444, routed)        1.614    14.955    u_ascon/CLK_IBUF_BUFG
+    SLICE_X14Y108        FDCE                                         r  u_ascon/DATA_OUT_reg[12]/C
+                         clock pessimism              0.267    15.222    
+                         clock uncertainty           -0.035    15.187    
+    SLICE_X14Y108        FDCE (Setup_fdce_C_CE)      -0.169    15.018    u_ascon/DATA_OUT_reg[12]
+  -------------------------------------------------------------------
+                         required time                         15.018    
+                         arrival time                         -12.118    
+  -------------------------------------------------------------------
+                         slack                                  2.900    
+
+Slack (MET) :             2.900ns  (required time - arrival time)
+  Source:                 u_ascon/PERM_INST/STATE_OUT_reg[317]/C
+                            (rising edge-triggered cell FDCE clocked by CLK  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            u_ascon/DATA_OUT_reg[13]/CE
+                            (rising edge-triggered cell FDCE clocked by CLK  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             CLK
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (CLK rise@10.000ns - CLK rise@0.000ns)
+  Data Path Delay:        6.857ns  (logic 2.965ns (43.240%)  route 3.892ns (56.760%))
+  Logic Levels:           14  (CARRY4=11 LUT4=1 LUT6=2)
+  Clock Path Skew:        -0.039ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.955ns = ( 14.955 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.261ns
+    Clock Pessimism Removal (CPR):    0.267ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock CLK rise edge)        0.000     0.000 r  
+    W5                                                0.000     0.000 r  CLK (IN)
+                         net (fo=0)                   0.000     0.000    CLK
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  CLK_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    CLK_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  CLK_IBUF_BUFG_inst/O
+                         net (fo=2444, routed)        1.740     5.261    u_ascon/PERM_INST/CLK_IBUF_BUFG
+    SLICE_X18Y104        FDCE                                         r  u_ascon/PERM_INST/STATE_OUT_reg[317]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X18Y104        FDCE (Prop_fdce_C_Q)         0.419     5.680 r  u_ascon/PERM_INST/STATE_OUT_reg[317]/Q
+                         net (fo=2, routed)           0.828     6.508    u_ascon/PERM_INST/perm_state_out[317]
+    SLICE_X19Y102        LUT6 (Prop_lut6_I0_O)        0.297     6.805 r  u_ascon/PERM_INST/DATA_OUT[127]_i_98/O
+                         net (fo=1, routed)           0.976     7.781    u_ascon/PERM_INST/DATA_OUT[127]_i_98_n_0
+    SLICE_X34Y100        LUT4 (Prop_lut4_I0_O)        0.124     7.905 r  u_ascon/PERM_INST/DATA_OUT[127]_i_90/O
+                         net (fo=1, routed)           0.000     7.905    u_ascon/PERM_INST/DATA_OUT[127]_i_90_n_0
+    SLICE_X34Y100        CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     8.438 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_79/CO[3]
+                         net (fo=1, routed)           0.000     8.438    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_79_n_0
+    SLICE_X34Y101        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.555 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_70/CO[3]
+                         net (fo=1, routed)           0.000     8.555    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_70_n_0
+    SLICE_X34Y102        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.672 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_61/CO[3]
+                         net (fo=1, routed)           0.000     8.672    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_61_n_0
+    SLICE_X34Y103        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.789 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_52/CO[3]
+                         net (fo=1, routed)           0.000     8.789    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_52_n_0
+    SLICE_X34Y104        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.906 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_43/CO[3]
+                         net (fo=1, routed)           0.000     8.906    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_43_n_0
+    SLICE_X34Y105        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.023 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_34/CO[3]
+                         net (fo=1, routed)           0.000     9.023    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_34_n_0
+    SLICE_X34Y106        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.140 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_25/CO[3]
+                         net (fo=1, routed)           0.000     9.140    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_25_n_0
+    SLICE_X34Y107        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.257 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_16/CO[3]
+                         net (fo=1, routed)           0.000     9.257    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_16_n_0
+    SLICE_X34Y108        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.374 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_9/CO[3]
+                         net (fo=1, routed)           0.000     9.374    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_9_n_0
+    SLICE_X34Y109        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.491 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_5/CO[3]
+                         net (fo=1, routed)           0.000     9.491    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_5_n_0
+    SLICE_X34Y110        CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.229     9.720 f  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_3/CO[2]
+                         net (fo=2, routed)           0.820    10.541    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_3_n_1
+    SLICE_X29Y119        LUT6 (Prop_lut6_I0_O)        0.310    10.851 r  u_ascon/PERM_INST/DATA_OUT[127]_i_1/O
+                         net (fo=128, routed)         1.268    12.118    u_ascon/PERM_INST_n_0
+    SLICE_X14Y108        FDCE                                         r  u_ascon/DATA_OUT_reg[13]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock CLK rise edge)       10.000    10.000 r  
+    W5                                                0.000    10.000 r  CLK (IN)
+                         net (fo=0)                   0.000    10.000    CLK
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  CLK_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    CLK_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  CLK_IBUF_BUFG_inst/O
+                         net (fo=2444, routed)        1.614    14.955    u_ascon/CLK_IBUF_BUFG
+    SLICE_X14Y108        FDCE                                         r  u_ascon/DATA_OUT_reg[13]/C
+                         clock pessimism              0.267    15.222    
+                         clock uncertainty           -0.035    15.187    
+    SLICE_X14Y108        FDCE (Setup_fdce_C_CE)      -0.169    15.018    u_ascon/DATA_OUT_reg[13]
+  -------------------------------------------------------------------
+                         required time                         15.018    
+                         arrival time                         -12.118    
+  -------------------------------------------------------------------
+                         slack                                  2.900    
+
+Slack (MET) :             2.900ns  (required time - arrival time)
+  Source:                 u_ascon/PERM_INST/STATE_OUT_reg[317]/C
+                            (rising edge-triggered cell FDCE clocked by CLK  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            u_ascon/DATA_OUT_reg[15]/CE
+                            (rising edge-triggered cell FDCE clocked by CLK  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             CLK
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (CLK rise@10.000ns - CLK rise@0.000ns)
+  Data Path Delay:        6.857ns  (logic 2.965ns (43.240%)  route 3.892ns (56.760%))
+  Logic Levels:           14  (CARRY4=11 LUT4=1 LUT6=2)
+  Clock Path Skew:        -0.039ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.955ns = ( 14.955 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.261ns
+    Clock Pessimism Removal (CPR):    0.267ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock CLK rise edge)        0.000     0.000 r  
+    W5                                                0.000     0.000 r  CLK (IN)
+                         net (fo=0)                   0.000     0.000    CLK
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  CLK_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    CLK_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  CLK_IBUF_BUFG_inst/O
+                         net (fo=2444, routed)        1.740     5.261    u_ascon/PERM_INST/CLK_IBUF_BUFG
+    SLICE_X18Y104        FDCE                                         r  u_ascon/PERM_INST/STATE_OUT_reg[317]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X18Y104        FDCE (Prop_fdce_C_Q)         0.419     5.680 r  u_ascon/PERM_INST/STATE_OUT_reg[317]/Q
+                         net (fo=2, routed)           0.828     6.508    u_ascon/PERM_INST/perm_state_out[317]
+    SLICE_X19Y102        LUT6 (Prop_lut6_I0_O)        0.297     6.805 r  u_ascon/PERM_INST/DATA_OUT[127]_i_98/O
+                         net (fo=1, routed)           0.976     7.781    u_ascon/PERM_INST/DATA_OUT[127]_i_98_n_0
+    SLICE_X34Y100        LUT4 (Prop_lut4_I0_O)        0.124     7.905 r  u_ascon/PERM_INST/DATA_OUT[127]_i_90/O
+                         net (fo=1, routed)           0.000     7.905    u_ascon/PERM_INST/DATA_OUT[127]_i_90_n_0
+    SLICE_X34Y100        CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     8.438 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_79/CO[3]
+                         net (fo=1, routed)           0.000     8.438    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_79_n_0
+    SLICE_X34Y101        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.555 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_70/CO[3]
+                         net (fo=1, routed)           0.000     8.555    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_70_n_0
+    SLICE_X34Y102        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.672 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_61/CO[3]
+                         net (fo=1, routed)           0.000     8.672    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_61_n_0
+    SLICE_X34Y103        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.789 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_52/CO[3]
+                         net (fo=1, routed)           0.000     8.789    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_52_n_0
+    SLICE_X34Y104        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.906 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_43/CO[3]
+                         net (fo=1, routed)           0.000     8.906    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_43_n_0
+    SLICE_X34Y105        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.023 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_34/CO[3]
+                         net (fo=1, routed)           0.000     9.023    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_34_n_0
+    SLICE_X34Y106        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.140 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_25/CO[3]
+                         net (fo=1, routed)           0.000     9.140    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_25_n_0
+    SLICE_X34Y107        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.257 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_16/CO[3]
+                         net (fo=1, routed)           0.000     9.257    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_16_n_0
+    SLICE_X34Y108        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.374 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_9/CO[3]
+                         net (fo=1, routed)           0.000     9.374    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_9_n_0
+    SLICE_X34Y109        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.491 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_5/CO[3]
+                         net (fo=1, routed)           0.000     9.491    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_5_n_0
+    SLICE_X34Y110        CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.229     9.720 f  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_3/CO[2]
+                         net (fo=2, routed)           0.820    10.541    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_3_n_1
+    SLICE_X29Y119        LUT6 (Prop_lut6_I0_O)        0.310    10.851 r  u_ascon/PERM_INST/DATA_OUT[127]_i_1/O
+                         net (fo=128, routed)         1.268    12.118    u_ascon/PERM_INST_n_0
+    SLICE_X14Y108        FDCE                                         r  u_ascon/DATA_OUT_reg[15]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock CLK rise edge)       10.000    10.000 r  
+    W5                                                0.000    10.000 r  CLK (IN)
+                         net (fo=0)                   0.000    10.000    CLK
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  CLK_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    CLK_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  CLK_IBUF_BUFG_inst/O
+                         net (fo=2444, routed)        1.614    14.955    u_ascon/CLK_IBUF_BUFG
+    SLICE_X14Y108        FDCE                                         r  u_ascon/DATA_OUT_reg[15]/C
+                         clock pessimism              0.267    15.222    
+                         clock uncertainty           -0.035    15.187    
+    SLICE_X14Y108        FDCE (Setup_fdce_C_CE)      -0.169    15.018    u_ascon/DATA_OUT_reg[15]
+  -------------------------------------------------------------------
+                         required time                         15.018    
+                         arrival time                         -12.118    
+  -------------------------------------------------------------------
+                         slack                                  2.900    
+
+Slack (MET) :             2.900ns  (required time - arrival time)
+  Source:                 u_ascon/PERM_INST/STATE_OUT_reg[317]/C
+                            (rising edge-triggered cell FDCE clocked by CLK  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            u_ascon/DATA_OUT_reg[9]/CE
+                            (rising edge-triggered cell FDCE clocked by CLK  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             CLK
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (CLK rise@10.000ns - CLK rise@0.000ns)
+  Data Path Delay:        6.857ns  (logic 2.965ns (43.240%)  route 3.892ns (56.760%))
+  Logic Levels:           14  (CARRY4=11 LUT4=1 LUT6=2)
+  Clock Path Skew:        -0.039ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.955ns = ( 14.955 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.261ns
+    Clock Pessimism Removal (CPR):    0.267ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock CLK rise edge)        0.000     0.000 r  
+    W5                                                0.000     0.000 r  CLK (IN)
+                         net (fo=0)                   0.000     0.000    CLK
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  CLK_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    CLK_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  CLK_IBUF_BUFG_inst/O
+                         net (fo=2444, routed)        1.740     5.261    u_ascon/PERM_INST/CLK_IBUF_BUFG
+    SLICE_X18Y104        FDCE                                         r  u_ascon/PERM_INST/STATE_OUT_reg[317]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X18Y104        FDCE (Prop_fdce_C_Q)         0.419     5.680 r  u_ascon/PERM_INST/STATE_OUT_reg[317]/Q
+                         net (fo=2, routed)           0.828     6.508    u_ascon/PERM_INST/perm_state_out[317]
+    SLICE_X19Y102        LUT6 (Prop_lut6_I0_O)        0.297     6.805 r  u_ascon/PERM_INST/DATA_OUT[127]_i_98/O
+                         net (fo=1, routed)           0.976     7.781    u_ascon/PERM_INST/DATA_OUT[127]_i_98_n_0
+    SLICE_X34Y100        LUT4 (Prop_lut4_I0_O)        0.124     7.905 r  u_ascon/PERM_INST/DATA_OUT[127]_i_90/O
+                         net (fo=1, routed)           0.000     7.905    u_ascon/PERM_INST/DATA_OUT[127]_i_90_n_0
+    SLICE_X34Y100        CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     8.438 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_79/CO[3]
+                         net (fo=1, routed)           0.000     8.438    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_79_n_0
+    SLICE_X34Y101        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.555 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_70/CO[3]
+                         net (fo=1, routed)           0.000     8.555    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_70_n_0
+    SLICE_X34Y102        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.672 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_61/CO[3]
+                         net (fo=1, routed)           0.000     8.672    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_61_n_0
+    SLICE_X34Y103        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.789 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_52/CO[3]
+                         net (fo=1, routed)           0.000     8.789    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_52_n_0
+    SLICE_X34Y104        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.906 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_43/CO[3]
+                         net (fo=1, routed)           0.000     8.906    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_43_n_0
+    SLICE_X34Y105        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.023 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_34/CO[3]
+                         net (fo=1, routed)           0.000     9.023    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_34_n_0
+    SLICE_X34Y106        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.140 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_25/CO[3]
+                         net (fo=1, routed)           0.000     9.140    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_25_n_0
+    SLICE_X34Y107        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.257 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_16/CO[3]
+                         net (fo=1, routed)           0.000     9.257    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_16_n_0
+    SLICE_X34Y108        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.374 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_9/CO[3]
+                         net (fo=1, routed)           0.000     9.374    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_9_n_0
+    SLICE_X34Y109        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.491 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_5/CO[3]
+                         net (fo=1, routed)           0.000     9.491    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_5_n_0
+    SLICE_X34Y110        CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.229     9.720 f  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_3/CO[2]
+                         net (fo=2, routed)           0.820    10.541    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_3_n_1
+    SLICE_X29Y119        LUT6 (Prop_lut6_I0_O)        0.310    10.851 r  u_ascon/PERM_INST/DATA_OUT[127]_i_1/O
+                         net (fo=128, routed)         1.268    12.118    u_ascon/PERM_INST_n_0
+    SLICE_X14Y108        FDCE                                         r  u_ascon/DATA_OUT_reg[9]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock CLK rise edge)       10.000    10.000 r  
+    W5                                                0.000    10.000 r  CLK (IN)
+                         net (fo=0)                   0.000    10.000    CLK
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  CLK_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    CLK_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  CLK_IBUF_BUFG_inst/O
+                         net (fo=2444, routed)        1.614    14.955    u_ascon/CLK_IBUF_BUFG
+    SLICE_X14Y108        FDCE                                         r  u_ascon/DATA_OUT_reg[9]/C
+                         clock pessimism              0.267    15.222    
+                         clock uncertainty           -0.035    15.187    
+    SLICE_X14Y108        FDCE (Setup_fdce_C_CE)      -0.169    15.018    u_ascon/DATA_OUT_reg[9]
+  -------------------------------------------------------------------
+                         required time                         15.018    
+                         arrival time                         -12.118    
+  -------------------------------------------------------------------
+                         slack                                  2.900    
+
+Slack (MET) :             3.022ns  (required time - arrival time)
+  Source:                 u_ascon/PERM_INST/STATE_OUT_reg[317]/C
+                            (rising edge-triggered cell FDCE clocked by CLK  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            u_ascon/DATA_OUT_reg[2]/CE
+                            (rising edge-triggered cell FDCE clocked by CLK  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             CLK
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (CLK rise@10.000ns - CLK rise@0.000ns)
+  Data Path Delay:        6.711ns  (logic 2.965ns (44.179%)  route 3.746ns (55.821%))
+  Logic Levels:           14  (CARRY4=11 LUT4=1 LUT6=2)
+  Clock Path Skew:        -0.026ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.954ns = ( 14.954 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.261ns
+    Clock Pessimism Removal (CPR):    0.281ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock CLK rise edge)        0.000     0.000 r  
+    W5                                                0.000     0.000 r  CLK (IN)
+                         net (fo=0)                   0.000     0.000    CLK
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  CLK_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    CLK_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  CLK_IBUF_BUFG_inst/O
+                         net (fo=2444, routed)        1.740     5.261    u_ascon/PERM_INST/CLK_IBUF_BUFG
+    SLICE_X18Y104        FDCE                                         r  u_ascon/PERM_INST/STATE_OUT_reg[317]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X18Y104        FDCE (Prop_fdce_C_Q)         0.419     5.680 r  u_ascon/PERM_INST/STATE_OUT_reg[317]/Q
+                         net (fo=2, routed)           0.828     6.508    u_ascon/PERM_INST/perm_state_out[317]
+    SLICE_X19Y102        LUT6 (Prop_lut6_I0_O)        0.297     6.805 r  u_ascon/PERM_INST/DATA_OUT[127]_i_98/O
+                         net (fo=1, routed)           0.976     7.781    u_ascon/PERM_INST/DATA_OUT[127]_i_98_n_0
+    SLICE_X34Y100        LUT4 (Prop_lut4_I0_O)        0.124     7.905 r  u_ascon/PERM_INST/DATA_OUT[127]_i_90/O
+                         net (fo=1, routed)           0.000     7.905    u_ascon/PERM_INST/DATA_OUT[127]_i_90_n_0
+    SLICE_X34Y100        CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     8.438 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_79/CO[3]
+                         net (fo=1, routed)           0.000     8.438    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_79_n_0
+    SLICE_X34Y101        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.555 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_70/CO[3]
+                         net (fo=1, routed)           0.000     8.555    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_70_n_0
+    SLICE_X34Y102        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.672 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_61/CO[3]
+                         net (fo=1, routed)           0.000     8.672    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_61_n_0
+    SLICE_X34Y103        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.789 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_52/CO[3]
+                         net (fo=1, routed)           0.000     8.789    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_52_n_0
+    SLICE_X34Y104        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.906 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_43/CO[3]
+                         net (fo=1, routed)           0.000     8.906    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_43_n_0
+    SLICE_X34Y105        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.023 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_34/CO[3]
+                         net (fo=1, routed)           0.000     9.023    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_34_n_0
+    SLICE_X34Y106        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.140 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_25/CO[3]
+                         net (fo=1, routed)           0.000     9.140    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_25_n_0
+    SLICE_X34Y107        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.257 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_16/CO[3]
+                         net (fo=1, routed)           0.000     9.257    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_16_n_0
+    SLICE_X34Y108        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.374 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_9/CO[3]
+                         net (fo=1, routed)           0.000     9.374    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_9_n_0
+    SLICE_X34Y109        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.491 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_5/CO[3]
+                         net (fo=1, routed)           0.000     9.491    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_5_n_0
+    SLICE_X34Y110        CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.229     9.720 f  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_3/CO[2]
+                         net (fo=2, routed)           0.820    10.541    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_3_n_1
+    SLICE_X29Y119        LUT6 (Prop_lut6_I0_O)        0.310    10.851 r  u_ascon/PERM_INST/DATA_OUT[127]_i_1/O
+                         net (fo=128, routed)         1.122    11.973    u_ascon/PERM_INST_n_0
+    SLICE_X19Y107        FDCE                                         r  u_ascon/DATA_OUT_reg[2]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock CLK rise edge)       10.000    10.000 r  
+    W5                                                0.000    10.000 r  CLK (IN)
+                         net (fo=0)                   0.000    10.000    CLK
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  CLK_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    CLK_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  CLK_IBUF_BUFG_inst/O
+                         net (fo=2444, routed)        1.613    14.954    u_ascon/CLK_IBUF_BUFG
+    SLICE_X19Y107        FDCE                                         r  u_ascon/DATA_OUT_reg[2]/C
+                         clock pessimism              0.281    15.235    
+                         clock uncertainty           -0.035    15.200    
+    SLICE_X19Y107        FDCE (Setup_fdce_C_CE)      -0.205    14.995    u_ascon/DATA_OUT_reg[2]
+  -------------------------------------------------------------------
+                         required time                         14.995    
+                         arrival time                         -11.973    
+  -------------------------------------------------------------------
+                         slack                                  3.022    
+
+Slack (MET) :             3.022ns  (required time - arrival time)
+  Source:                 u_ascon/PERM_INST/STATE_OUT_reg[317]/C
+                            (rising edge-triggered cell FDCE clocked by CLK  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            u_ascon/DATA_OUT_reg[3]/CE
+                            (rising edge-triggered cell FDCE clocked by CLK  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             CLK
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (CLK rise@10.000ns - CLK rise@0.000ns)
+  Data Path Delay:        6.711ns  (logic 2.965ns (44.179%)  route 3.746ns (55.821%))
+  Logic Levels:           14  (CARRY4=11 LUT4=1 LUT6=2)
+  Clock Path Skew:        -0.026ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.954ns = ( 14.954 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.261ns
+    Clock Pessimism Removal (CPR):    0.281ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock CLK rise edge)        0.000     0.000 r  
+    W5                                                0.000     0.000 r  CLK (IN)
+                         net (fo=0)                   0.000     0.000    CLK
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  CLK_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    CLK_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  CLK_IBUF_BUFG_inst/O
+                         net (fo=2444, routed)        1.740     5.261    u_ascon/PERM_INST/CLK_IBUF_BUFG
+    SLICE_X18Y104        FDCE                                         r  u_ascon/PERM_INST/STATE_OUT_reg[317]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X18Y104        FDCE (Prop_fdce_C_Q)         0.419     5.680 r  u_ascon/PERM_INST/STATE_OUT_reg[317]/Q
+                         net (fo=2, routed)           0.828     6.508    u_ascon/PERM_INST/perm_state_out[317]
+    SLICE_X19Y102        LUT6 (Prop_lut6_I0_O)        0.297     6.805 r  u_ascon/PERM_INST/DATA_OUT[127]_i_98/O
+                         net (fo=1, routed)           0.976     7.781    u_ascon/PERM_INST/DATA_OUT[127]_i_98_n_0
+    SLICE_X34Y100        LUT4 (Prop_lut4_I0_O)        0.124     7.905 r  u_ascon/PERM_INST/DATA_OUT[127]_i_90/O
+                         net (fo=1, routed)           0.000     7.905    u_ascon/PERM_INST/DATA_OUT[127]_i_90_n_0
+    SLICE_X34Y100        CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     8.438 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_79/CO[3]
+                         net (fo=1, routed)           0.000     8.438    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_79_n_0
+    SLICE_X34Y101        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.555 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_70/CO[3]
+                         net (fo=1, routed)           0.000     8.555    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_70_n_0
+    SLICE_X34Y102        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.672 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_61/CO[3]
+                         net (fo=1, routed)           0.000     8.672    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_61_n_0
+    SLICE_X34Y103        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.789 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_52/CO[3]
+                         net (fo=1, routed)           0.000     8.789    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_52_n_0
+    SLICE_X34Y104        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.906 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_43/CO[3]
+                         net (fo=1, routed)           0.000     8.906    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_43_n_0
+    SLICE_X34Y105        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.023 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_34/CO[3]
+                         net (fo=1, routed)           0.000     9.023    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_34_n_0
+    SLICE_X34Y106        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.140 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_25/CO[3]
+                         net (fo=1, routed)           0.000     9.140    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_25_n_0
+    SLICE_X34Y107        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.257 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_16/CO[3]
+                         net (fo=1, routed)           0.000     9.257    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_16_n_0
+    SLICE_X34Y108        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.374 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_9/CO[3]
+                         net (fo=1, routed)           0.000     9.374    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_9_n_0
+    SLICE_X34Y109        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.491 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_5/CO[3]
+                         net (fo=1, routed)           0.000     9.491    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_5_n_0
+    SLICE_X34Y110        CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.229     9.720 f  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_3/CO[2]
+                         net (fo=2, routed)           0.820    10.541    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_3_n_1
+    SLICE_X29Y119        LUT6 (Prop_lut6_I0_O)        0.310    10.851 r  u_ascon/PERM_INST/DATA_OUT[127]_i_1/O
+                         net (fo=128, routed)         1.122    11.973    u_ascon/PERM_INST_n_0
+    SLICE_X19Y107        FDCE                                         r  u_ascon/DATA_OUT_reg[3]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock CLK rise edge)       10.000    10.000 r  
+    W5                                                0.000    10.000 r  CLK (IN)
+                         net (fo=0)                   0.000    10.000    CLK
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  CLK_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    CLK_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  CLK_IBUF_BUFG_inst/O
+                         net (fo=2444, routed)        1.613    14.954    u_ascon/CLK_IBUF_BUFG
+    SLICE_X19Y107        FDCE                                         r  u_ascon/DATA_OUT_reg[3]/C
+                         clock pessimism              0.281    15.235    
+                         clock uncertainty           -0.035    15.200    
+    SLICE_X19Y107        FDCE (Setup_fdce_C_CE)      -0.205    14.995    u_ascon/DATA_OUT_reg[3]
+  -------------------------------------------------------------------
+                         required time                         14.995    
+                         arrival time                         -11.973    
+  -------------------------------------------------------------------
+                         slack                                  3.022    
+
+Slack (MET) :             3.023ns  (required time - arrival time)
+  Source:                 u_ascon/PERM_INST/STATE_OUT_reg[317]/C
+                            (rising edge-triggered cell FDCE clocked by CLK  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            u_ascon/DATA_OUT_reg[69]/CE
+                            (rising edge-triggered cell FDCE clocked by CLK  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             CLK
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (CLK rise@10.000ns - CLK rise@0.000ns)
+  Data Path Delay:        6.732ns  (logic 2.965ns (44.040%)  route 3.767ns (55.960%))
+  Logic Levels:           14  (CARRY4=11 LUT4=1 LUT6=2)
+  Clock Path Skew:        -0.040ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.954ns = ( 14.954 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.261ns
+    Clock Pessimism Removal (CPR):    0.267ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock CLK rise edge)        0.000     0.000 r  
+    W5                                                0.000     0.000 r  CLK (IN)
+                         net (fo=0)                   0.000     0.000    CLK
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  CLK_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    CLK_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  CLK_IBUF_BUFG_inst/O
+                         net (fo=2444, routed)        1.740     5.261    u_ascon/PERM_INST/CLK_IBUF_BUFG
+    SLICE_X18Y104        FDCE                                         r  u_ascon/PERM_INST/STATE_OUT_reg[317]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X18Y104        FDCE (Prop_fdce_C_Q)         0.419     5.680 r  u_ascon/PERM_INST/STATE_OUT_reg[317]/Q
+                         net (fo=2, routed)           0.828     6.508    u_ascon/PERM_INST/perm_state_out[317]
+    SLICE_X19Y102        LUT6 (Prop_lut6_I0_O)        0.297     6.805 r  u_ascon/PERM_INST/DATA_OUT[127]_i_98/O
+                         net (fo=1, routed)           0.976     7.781    u_ascon/PERM_INST/DATA_OUT[127]_i_98_n_0
+    SLICE_X34Y100        LUT4 (Prop_lut4_I0_O)        0.124     7.905 r  u_ascon/PERM_INST/DATA_OUT[127]_i_90/O
+                         net (fo=1, routed)           0.000     7.905    u_ascon/PERM_INST/DATA_OUT[127]_i_90_n_0
+    SLICE_X34Y100        CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     8.438 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_79/CO[3]
+                         net (fo=1, routed)           0.000     8.438    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_79_n_0
+    SLICE_X34Y101        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.555 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_70/CO[3]
+                         net (fo=1, routed)           0.000     8.555    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_70_n_0
+    SLICE_X34Y102        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.672 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_61/CO[3]
+                         net (fo=1, routed)           0.000     8.672    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_61_n_0
+    SLICE_X34Y103        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.789 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_52/CO[3]
+                         net (fo=1, routed)           0.000     8.789    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_52_n_0
+    SLICE_X34Y104        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.906 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_43/CO[3]
+                         net (fo=1, routed)           0.000     8.906    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_43_n_0
+    SLICE_X34Y105        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.023 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_34/CO[3]
+                         net (fo=1, routed)           0.000     9.023    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_34_n_0
+    SLICE_X34Y106        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.140 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_25/CO[3]
+                         net (fo=1, routed)           0.000     9.140    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_25_n_0
+    SLICE_X34Y107        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.257 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_16/CO[3]
+                         net (fo=1, routed)           0.000     9.257    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_16_n_0
+    SLICE_X34Y108        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.374 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_9/CO[3]
+                         net (fo=1, routed)           0.000     9.374    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_9_n_0
+    SLICE_X34Y109        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.491 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_5/CO[3]
+                         net (fo=1, routed)           0.000     9.491    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_5_n_0
+    SLICE_X34Y110        CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.229     9.720 f  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_3/CO[2]
+                         net (fo=2, routed)           0.820    10.541    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_3_n_1
+    SLICE_X29Y119        LUT6 (Prop_lut6_I0_O)        0.310    10.851 r  u_ascon/PERM_INST/DATA_OUT[127]_i_1/O
+                         net (fo=128, routed)         1.143    11.994    u_ascon/PERM_INST_n_0
+    SLICE_X14Y109        FDCE                                         r  u_ascon/DATA_OUT_reg[69]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock CLK rise edge)       10.000    10.000 r  
+    W5                                                0.000    10.000 r  CLK (IN)
+                         net (fo=0)                   0.000    10.000    CLK
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  CLK_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    CLK_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  CLK_IBUF_BUFG_inst/O
+                         net (fo=2444, routed)        1.613    14.954    u_ascon/CLK_IBUF_BUFG
+    SLICE_X14Y109        FDCE                                         r  u_ascon/DATA_OUT_reg[69]/C
+                         clock pessimism              0.267    15.221    
+                         clock uncertainty           -0.035    15.186    
+    SLICE_X14Y109        FDCE (Setup_fdce_C_CE)      -0.169    15.017    u_ascon/DATA_OUT_reg[69]
+  -------------------------------------------------------------------
+                         required time                         15.017    
+                         arrival time                         -11.994    
+  -------------------------------------------------------------------
+                         slack                                  3.023    
+
+Slack (MET) :             3.023ns  (required time - arrival time)
+  Source:                 u_ascon/PERM_INST/STATE_OUT_reg[317]/C
+                            (rising edge-triggered cell FDCE clocked by CLK  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            u_ascon/DATA_OUT_reg[77]/CE
+                            (rising edge-triggered cell FDCE clocked by CLK  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             CLK
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (CLK rise@10.000ns - CLK rise@0.000ns)
+  Data Path Delay:        6.732ns  (logic 2.965ns (44.040%)  route 3.767ns (55.960%))
+  Logic Levels:           14  (CARRY4=11 LUT4=1 LUT6=2)
+  Clock Path Skew:        -0.040ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.954ns = ( 14.954 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.261ns
+    Clock Pessimism Removal (CPR):    0.267ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock CLK rise edge)        0.000     0.000 r  
+    W5                                                0.000     0.000 r  CLK (IN)
+                         net (fo=0)                   0.000     0.000    CLK
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  CLK_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    CLK_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  CLK_IBUF_BUFG_inst/O
+                         net (fo=2444, routed)        1.740     5.261    u_ascon/PERM_INST/CLK_IBUF_BUFG
+    SLICE_X18Y104        FDCE                                         r  u_ascon/PERM_INST/STATE_OUT_reg[317]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X18Y104        FDCE (Prop_fdce_C_Q)         0.419     5.680 r  u_ascon/PERM_INST/STATE_OUT_reg[317]/Q
+                         net (fo=2, routed)           0.828     6.508    u_ascon/PERM_INST/perm_state_out[317]
+    SLICE_X19Y102        LUT6 (Prop_lut6_I0_O)        0.297     6.805 r  u_ascon/PERM_INST/DATA_OUT[127]_i_98/O
+                         net (fo=1, routed)           0.976     7.781    u_ascon/PERM_INST/DATA_OUT[127]_i_98_n_0
+    SLICE_X34Y100        LUT4 (Prop_lut4_I0_O)        0.124     7.905 r  u_ascon/PERM_INST/DATA_OUT[127]_i_90/O
+                         net (fo=1, routed)           0.000     7.905    u_ascon/PERM_INST/DATA_OUT[127]_i_90_n_0
+    SLICE_X34Y100        CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     8.438 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_79/CO[3]
+                         net (fo=1, routed)           0.000     8.438    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_79_n_0
+    SLICE_X34Y101        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.555 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_70/CO[3]
+                         net (fo=1, routed)           0.000     8.555    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_70_n_0
+    SLICE_X34Y102        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.672 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_61/CO[3]
+                         net (fo=1, routed)           0.000     8.672    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_61_n_0
+    SLICE_X34Y103        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.789 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_52/CO[3]
+                         net (fo=1, routed)           0.000     8.789    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_52_n_0
+    SLICE_X34Y104        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.906 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_43/CO[3]
+                         net (fo=1, routed)           0.000     8.906    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_43_n_0
+    SLICE_X34Y105        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.023 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_34/CO[3]
+                         net (fo=1, routed)           0.000     9.023    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_34_n_0
+    SLICE_X34Y106        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.140 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_25/CO[3]
+                         net (fo=1, routed)           0.000     9.140    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_25_n_0
+    SLICE_X34Y107        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.257 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_16/CO[3]
+                         net (fo=1, routed)           0.000     9.257    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_16_n_0
+    SLICE_X34Y108        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.374 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_9/CO[3]
+                         net (fo=1, routed)           0.000     9.374    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_9_n_0
+    SLICE_X34Y109        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.491 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_5/CO[3]
+                         net (fo=1, routed)           0.000     9.491    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_5_n_0
+    SLICE_X34Y110        CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.229     9.720 f  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_3/CO[2]
+                         net (fo=2, routed)           0.820    10.541    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_3_n_1
+    SLICE_X29Y119        LUT6 (Prop_lut6_I0_O)        0.310    10.851 r  u_ascon/PERM_INST/DATA_OUT[127]_i_1/O
+                         net (fo=128, routed)         1.143    11.994    u_ascon/PERM_INST_n_0
+    SLICE_X14Y109        FDCE                                         r  u_ascon/DATA_OUT_reg[77]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock CLK rise edge)       10.000    10.000 r  
+    W5                                                0.000    10.000 r  CLK (IN)
+                         net (fo=0)                   0.000    10.000    CLK
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  CLK_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    CLK_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  CLK_IBUF_BUFG_inst/O
+                         net (fo=2444, routed)        1.613    14.954    u_ascon/CLK_IBUF_BUFG
+    SLICE_X14Y109        FDCE                                         r  u_ascon/DATA_OUT_reg[77]/C
+                         clock pessimism              0.267    15.221    
+                         clock uncertainty           -0.035    15.186    
+    SLICE_X14Y109        FDCE (Setup_fdce_C_CE)      -0.169    15.017    u_ascon/DATA_OUT_reg[77]
+  -------------------------------------------------------------------
+                         required time                         15.017    
+                         arrival time                         -11.994    
+  -------------------------------------------------------------------
+                         slack                                  3.023    
+
+Slack (MET) :             3.023ns  (required time - arrival time)
+  Source:                 u_ascon/PERM_INST/STATE_OUT_reg[317]/C
+                            (rising edge-triggered cell FDCE clocked by CLK  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            u_ascon/DATA_OUT_reg[79]/CE
+                            (rising edge-triggered cell FDCE clocked by CLK  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             CLK
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (CLK rise@10.000ns - CLK rise@0.000ns)
+  Data Path Delay:        6.732ns  (logic 2.965ns (44.040%)  route 3.767ns (55.960%))
+  Logic Levels:           14  (CARRY4=11 LUT4=1 LUT6=2)
+  Clock Path Skew:        -0.040ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.954ns = ( 14.954 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.261ns
+    Clock Pessimism Removal (CPR):    0.267ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock CLK rise edge)        0.000     0.000 r  
+    W5                                                0.000     0.000 r  CLK (IN)
+                         net (fo=0)                   0.000     0.000    CLK
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  CLK_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    CLK_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  CLK_IBUF_BUFG_inst/O
+                         net (fo=2444, routed)        1.740     5.261    u_ascon/PERM_INST/CLK_IBUF_BUFG
+    SLICE_X18Y104        FDCE                                         r  u_ascon/PERM_INST/STATE_OUT_reg[317]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X18Y104        FDCE (Prop_fdce_C_Q)         0.419     5.680 r  u_ascon/PERM_INST/STATE_OUT_reg[317]/Q
+                         net (fo=2, routed)           0.828     6.508    u_ascon/PERM_INST/perm_state_out[317]
+    SLICE_X19Y102        LUT6 (Prop_lut6_I0_O)        0.297     6.805 r  u_ascon/PERM_INST/DATA_OUT[127]_i_98/O
+                         net (fo=1, routed)           0.976     7.781    u_ascon/PERM_INST/DATA_OUT[127]_i_98_n_0
+    SLICE_X34Y100        LUT4 (Prop_lut4_I0_O)        0.124     7.905 r  u_ascon/PERM_INST/DATA_OUT[127]_i_90/O
+                         net (fo=1, routed)           0.000     7.905    u_ascon/PERM_INST/DATA_OUT[127]_i_90_n_0
+    SLICE_X34Y100        CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     8.438 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_79/CO[3]
+                         net (fo=1, routed)           0.000     8.438    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_79_n_0
+    SLICE_X34Y101        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.555 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_70/CO[3]
+                         net (fo=1, routed)           0.000     8.555    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_70_n_0
+    SLICE_X34Y102        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.672 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_61/CO[3]
+                         net (fo=1, routed)           0.000     8.672    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_61_n_0
+    SLICE_X34Y103        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.789 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_52/CO[3]
+                         net (fo=1, routed)           0.000     8.789    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_52_n_0
+    SLICE_X34Y104        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.906 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_43/CO[3]
+                         net (fo=1, routed)           0.000     8.906    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_43_n_0
+    SLICE_X34Y105        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.023 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_34/CO[3]
+                         net (fo=1, routed)           0.000     9.023    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_34_n_0
+    SLICE_X34Y106        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.140 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_25/CO[3]
+                         net (fo=1, routed)           0.000     9.140    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_25_n_0
+    SLICE_X34Y107        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.257 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_16/CO[3]
+                         net (fo=1, routed)           0.000     9.257    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_16_n_0
+    SLICE_X34Y108        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.374 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_9/CO[3]
+                         net (fo=1, routed)           0.000     9.374    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_9_n_0
+    SLICE_X34Y109        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.491 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_5/CO[3]
+                         net (fo=1, routed)           0.000     9.491    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_5_n_0
+    SLICE_X34Y110        CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.229     9.720 f  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_3/CO[2]
+                         net (fo=2, routed)           0.820    10.541    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_3_n_1
+    SLICE_X29Y119        LUT6 (Prop_lut6_I0_O)        0.310    10.851 r  u_ascon/PERM_INST/DATA_OUT[127]_i_1/O
+                         net (fo=128, routed)         1.143    11.994    u_ascon/PERM_INST_n_0
+    SLICE_X14Y109        FDCE                                         r  u_ascon/DATA_OUT_reg[79]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock CLK rise edge)       10.000    10.000 r  
+    W5                                                0.000    10.000 r  CLK (IN)
+                         net (fo=0)                   0.000    10.000    CLK
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  CLK_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    CLK_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  CLK_IBUF_BUFG_inst/O
+                         net (fo=2444, routed)        1.613    14.954    u_ascon/CLK_IBUF_BUFG
+    SLICE_X14Y109        FDCE                                         r  u_ascon/DATA_OUT_reg[79]/C
+                         clock pessimism              0.267    15.221    
+                         clock uncertainty           -0.035    15.186    
+    SLICE_X14Y109        FDCE (Setup_fdce_C_CE)      -0.169    15.017    u_ascon/DATA_OUT_reg[79]
+  -------------------------------------------------------------------
+                         required time                         15.017    
+                         arrival time                         -11.994    
+  -------------------------------------------------------------------
+                         slack                                  3.023    
+
+Slack (MET) :             3.023ns  (required time - arrival time)
+  Source:                 u_ascon/PERM_INST/STATE_OUT_reg[317]/C
+                            (rising edge-triggered cell FDCE clocked by CLK  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            u_ascon/DATA_OUT_reg[7]/CE
+                            (rising edge-triggered cell FDCE clocked by CLK  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             CLK
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (CLK rise@10.000ns - CLK rise@0.000ns)
+  Data Path Delay:        6.732ns  (logic 2.965ns (44.040%)  route 3.767ns (55.960%))
+  Logic Levels:           14  (CARRY4=11 LUT4=1 LUT6=2)
+  Clock Path Skew:        -0.040ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.954ns = ( 14.954 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.261ns
+    Clock Pessimism Removal (CPR):    0.267ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock CLK rise edge)        0.000     0.000 r  
+    W5                                                0.000     0.000 r  CLK (IN)
+                         net (fo=0)                   0.000     0.000    CLK
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  CLK_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    CLK_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  CLK_IBUF_BUFG_inst/O
+                         net (fo=2444, routed)        1.740     5.261    u_ascon/PERM_INST/CLK_IBUF_BUFG
+    SLICE_X18Y104        FDCE                                         r  u_ascon/PERM_INST/STATE_OUT_reg[317]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X18Y104        FDCE (Prop_fdce_C_Q)         0.419     5.680 r  u_ascon/PERM_INST/STATE_OUT_reg[317]/Q
+                         net (fo=2, routed)           0.828     6.508    u_ascon/PERM_INST/perm_state_out[317]
+    SLICE_X19Y102        LUT6 (Prop_lut6_I0_O)        0.297     6.805 r  u_ascon/PERM_INST/DATA_OUT[127]_i_98/O
+                         net (fo=1, routed)           0.976     7.781    u_ascon/PERM_INST/DATA_OUT[127]_i_98_n_0
+    SLICE_X34Y100        LUT4 (Prop_lut4_I0_O)        0.124     7.905 r  u_ascon/PERM_INST/DATA_OUT[127]_i_90/O
+                         net (fo=1, routed)           0.000     7.905    u_ascon/PERM_INST/DATA_OUT[127]_i_90_n_0
+    SLICE_X34Y100        CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     8.438 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_79/CO[3]
+                         net (fo=1, routed)           0.000     8.438    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_79_n_0
+    SLICE_X34Y101        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.555 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_70/CO[3]
+                         net (fo=1, routed)           0.000     8.555    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_70_n_0
+    SLICE_X34Y102        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.672 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_61/CO[3]
+                         net (fo=1, routed)           0.000     8.672    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_61_n_0
+    SLICE_X34Y103        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.789 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_52/CO[3]
+                         net (fo=1, routed)           0.000     8.789    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_52_n_0
+    SLICE_X34Y104        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.906 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_43/CO[3]
+                         net (fo=1, routed)           0.000     8.906    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_43_n_0
+    SLICE_X34Y105        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.023 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_34/CO[3]
+                         net (fo=1, routed)           0.000     9.023    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_34_n_0
+    SLICE_X34Y106        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.140 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_25/CO[3]
+                         net (fo=1, routed)           0.000     9.140    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_25_n_0
+    SLICE_X34Y107        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.257 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_16/CO[3]
+                         net (fo=1, routed)           0.000     9.257    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_16_n_0
+    SLICE_X34Y108        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.374 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_9/CO[3]
+                         net (fo=1, routed)           0.000     9.374    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_9_n_0
+    SLICE_X34Y109        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.491 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_5/CO[3]
+                         net (fo=1, routed)           0.000     9.491    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_5_n_0
+    SLICE_X34Y110        CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.229     9.720 f  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_3/CO[2]
+                         net (fo=2, routed)           0.820    10.541    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_3_n_1
+    SLICE_X29Y119        LUT6 (Prop_lut6_I0_O)        0.310    10.851 r  u_ascon/PERM_INST/DATA_OUT[127]_i_1/O
+                         net (fo=128, routed)         1.143    11.994    u_ascon/PERM_INST_n_0
+    SLICE_X14Y109        FDCE                                         r  u_ascon/DATA_OUT_reg[7]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock CLK rise edge)       10.000    10.000 r  
+    W5                                                0.000    10.000 r  CLK (IN)
+                         net (fo=0)                   0.000    10.000    CLK
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  CLK_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    CLK_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  CLK_IBUF_BUFG_inst/O
+                         net (fo=2444, routed)        1.613    14.954    u_ascon/CLK_IBUF_BUFG
+    SLICE_X14Y109        FDCE                                         r  u_ascon/DATA_OUT_reg[7]/C
+                         clock pessimism              0.267    15.221    
+                         clock uncertainty           -0.035    15.186    
+    SLICE_X14Y109        FDCE (Setup_fdce_C_CE)      -0.169    15.017    u_ascon/DATA_OUT_reg[7]
+  -------------------------------------------------------------------
+                         required time                         15.017    
+                         arrival time                         -11.994    
+  -------------------------------------------------------------------
+                         slack                                  3.023    
+
+Slack (MET) :             3.035ns  (required time - arrival time)
+  Source:                 u_ascon/PERM_INST/STATE_OUT_reg[317]/C
+                            (rising edge-triggered cell FDCE clocked by CLK  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            u_ascon/DATA_OUT_reg[14]/CE
+                            (rising edge-triggered cell FDCE clocked by CLK  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             CLK
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (CLK rise@10.000ns - CLK rise@0.000ns)
+  Data Path Delay:        6.698ns  (logic 2.965ns (44.267%)  route 3.733ns (55.733%))
+  Logic Levels:           14  (CARRY4=11 LUT4=1 LUT6=2)
+  Clock Path Skew:        -0.027ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.953ns = ( 14.953 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.261ns
+    Clock Pessimism Removal (CPR):    0.281ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock CLK rise edge)        0.000     0.000 r  
+    W5                                                0.000     0.000 r  CLK (IN)
+                         net (fo=0)                   0.000     0.000    CLK
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  CLK_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    CLK_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  CLK_IBUF_BUFG_inst/O
+                         net (fo=2444, routed)        1.740     5.261    u_ascon/PERM_INST/CLK_IBUF_BUFG
+    SLICE_X18Y104        FDCE                                         r  u_ascon/PERM_INST/STATE_OUT_reg[317]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X18Y104        FDCE (Prop_fdce_C_Q)         0.419     5.680 r  u_ascon/PERM_INST/STATE_OUT_reg[317]/Q
+                         net (fo=2, routed)           0.828     6.508    u_ascon/PERM_INST/perm_state_out[317]
+    SLICE_X19Y102        LUT6 (Prop_lut6_I0_O)        0.297     6.805 r  u_ascon/PERM_INST/DATA_OUT[127]_i_98/O
+                         net (fo=1, routed)           0.976     7.781    u_ascon/PERM_INST/DATA_OUT[127]_i_98_n_0
+    SLICE_X34Y100        LUT4 (Prop_lut4_I0_O)        0.124     7.905 r  u_ascon/PERM_INST/DATA_OUT[127]_i_90/O
+                         net (fo=1, routed)           0.000     7.905    u_ascon/PERM_INST/DATA_OUT[127]_i_90_n_0
+    SLICE_X34Y100        CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     8.438 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_79/CO[3]
+                         net (fo=1, routed)           0.000     8.438    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_79_n_0
+    SLICE_X34Y101        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.555 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_70/CO[3]
+                         net (fo=1, routed)           0.000     8.555    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_70_n_0
+    SLICE_X34Y102        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.672 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_61/CO[3]
+                         net (fo=1, routed)           0.000     8.672    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_61_n_0
+    SLICE_X34Y103        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.789 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_52/CO[3]
+                         net (fo=1, routed)           0.000     8.789    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_52_n_0
+    SLICE_X34Y104        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.906 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_43/CO[3]
+                         net (fo=1, routed)           0.000     8.906    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_43_n_0
+    SLICE_X34Y105        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.023 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_34/CO[3]
+                         net (fo=1, routed)           0.000     9.023    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_34_n_0
+    SLICE_X34Y106        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.140 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_25/CO[3]
+                         net (fo=1, routed)           0.000     9.140    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_25_n_0
+    SLICE_X34Y107        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.257 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_16/CO[3]
+                         net (fo=1, routed)           0.000     9.257    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_16_n_0
+    SLICE_X34Y108        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.374 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_9/CO[3]
+                         net (fo=1, routed)           0.000     9.374    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_9_n_0
+    SLICE_X34Y109        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.491 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_5/CO[3]
+                         net (fo=1, routed)           0.000     9.491    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_5_n_0
+    SLICE_X34Y110        CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.229     9.720 f  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_3/CO[2]
+                         net (fo=2, routed)           0.820    10.541    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_3_n_1
+    SLICE_X29Y119        LUT6 (Prop_lut6_I0_O)        0.310    10.851 r  u_ascon/PERM_INST/DATA_OUT[127]_i_1/O
+                         net (fo=128, routed)         1.109    11.959    u_ascon/PERM_INST_n_0
+    SLICE_X17Y109        FDCE                                         r  u_ascon/DATA_OUT_reg[14]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock CLK rise edge)       10.000    10.000 r  
+    W5                                                0.000    10.000 r  CLK (IN)
+                         net (fo=0)                   0.000    10.000    CLK
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  CLK_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    CLK_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  CLK_IBUF_BUFG_inst/O
+                         net (fo=2444, routed)        1.612    14.953    u_ascon/CLK_IBUF_BUFG
+    SLICE_X17Y109        FDCE                                         r  u_ascon/DATA_OUT_reg[14]/C
+                         clock pessimism              0.281    15.234    
+                         clock uncertainty           -0.035    15.199    
+    SLICE_X17Y109        FDCE (Setup_fdce_C_CE)      -0.205    14.994    u_ascon/DATA_OUT_reg[14]
+  -------------------------------------------------------------------
+                         required time                         14.994    
+                         arrival time                         -11.959    
+  -------------------------------------------------------------------
+                         slack                                  3.035    
+
+Slack (MET) :             3.035ns  (required time - arrival time)
+  Source:                 u_ascon/PERM_INST/STATE_OUT_reg[317]/C
+                            (rising edge-triggered cell FDCE clocked by CLK  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            u_ascon/DATA_OUT_reg[4]/CE
+                            (rising edge-triggered cell FDCE clocked by CLK  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             CLK
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (CLK rise@10.000ns - CLK rise@0.000ns)
+  Data Path Delay:        6.698ns  (logic 2.965ns (44.267%)  route 3.733ns (55.733%))
+  Logic Levels:           14  (CARRY4=11 LUT4=1 LUT6=2)
+  Clock Path Skew:        -0.027ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.953ns = ( 14.953 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.261ns
+    Clock Pessimism Removal (CPR):    0.281ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock CLK rise edge)        0.000     0.000 r  
+    W5                                                0.000     0.000 r  CLK (IN)
+                         net (fo=0)                   0.000     0.000    CLK
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  CLK_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    CLK_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  CLK_IBUF_BUFG_inst/O
+                         net (fo=2444, routed)        1.740     5.261    u_ascon/PERM_INST/CLK_IBUF_BUFG
+    SLICE_X18Y104        FDCE                                         r  u_ascon/PERM_INST/STATE_OUT_reg[317]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X18Y104        FDCE (Prop_fdce_C_Q)         0.419     5.680 r  u_ascon/PERM_INST/STATE_OUT_reg[317]/Q
+                         net (fo=2, routed)           0.828     6.508    u_ascon/PERM_INST/perm_state_out[317]
+    SLICE_X19Y102        LUT6 (Prop_lut6_I0_O)        0.297     6.805 r  u_ascon/PERM_INST/DATA_OUT[127]_i_98/O
+                         net (fo=1, routed)           0.976     7.781    u_ascon/PERM_INST/DATA_OUT[127]_i_98_n_0
+    SLICE_X34Y100        LUT4 (Prop_lut4_I0_O)        0.124     7.905 r  u_ascon/PERM_INST/DATA_OUT[127]_i_90/O
+                         net (fo=1, routed)           0.000     7.905    u_ascon/PERM_INST/DATA_OUT[127]_i_90_n_0
+    SLICE_X34Y100        CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     8.438 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_79/CO[3]
+                         net (fo=1, routed)           0.000     8.438    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_79_n_0
+    SLICE_X34Y101        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.555 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_70/CO[3]
+                         net (fo=1, routed)           0.000     8.555    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_70_n_0
+    SLICE_X34Y102        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.672 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_61/CO[3]
+                         net (fo=1, routed)           0.000     8.672    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_61_n_0
+    SLICE_X34Y103        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.789 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_52/CO[3]
+                         net (fo=1, routed)           0.000     8.789    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_52_n_0
+    SLICE_X34Y104        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.906 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_43/CO[3]
+                         net (fo=1, routed)           0.000     8.906    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_43_n_0
+    SLICE_X34Y105        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.023 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_34/CO[3]
+                         net (fo=1, routed)           0.000     9.023    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_34_n_0
+    SLICE_X34Y106        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.140 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_25/CO[3]
+                         net (fo=1, routed)           0.000     9.140    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_25_n_0
+    SLICE_X34Y107        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.257 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_16/CO[3]
+                         net (fo=1, routed)           0.000     9.257    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_16_n_0
+    SLICE_X34Y108        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.374 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_9/CO[3]
+                         net (fo=1, routed)           0.000     9.374    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_9_n_0
+    SLICE_X34Y109        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.491 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_5/CO[3]
+                         net (fo=1, routed)           0.000     9.491    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_5_n_0
+    SLICE_X34Y110        CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.229     9.720 f  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_3/CO[2]
+                         net (fo=2, routed)           0.820    10.541    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_3_n_1
+    SLICE_X29Y119        LUT6 (Prop_lut6_I0_O)        0.310    10.851 r  u_ascon/PERM_INST/DATA_OUT[127]_i_1/O
+                         net (fo=128, routed)         1.109    11.959    u_ascon/PERM_INST_n_0
+    SLICE_X17Y109        FDCE                                         r  u_ascon/DATA_OUT_reg[4]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock CLK rise edge)       10.000    10.000 r  
+    W5                                                0.000    10.000 r  CLK (IN)
+                         net (fo=0)                   0.000    10.000    CLK
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  CLK_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    CLK_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  CLK_IBUF_BUFG_inst/O
+                         net (fo=2444, routed)        1.612    14.953    u_ascon/CLK_IBUF_BUFG
+    SLICE_X17Y109        FDCE                                         r  u_ascon/DATA_OUT_reg[4]/C
+                         clock pessimism              0.281    15.234    
+                         clock uncertainty           -0.035    15.199    
+    SLICE_X17Y109        FDCE (Setup_fdce_C_CE)      -0.205    14.994    u_ascon/DATA_OUT_reg[4]
+  -------------------------------------------------------------------
+                         required time                         14.994    
+                         arrival time                         -11.959    
+  -------------------------------------------------------------------
+                         slack                                  3.035    
+
+Slack (MET) :             3.035ns  (required time - arrival time)
+  Source:                 u_ascon/PERM_INST/STATE_OUT_reg[317]/C
+                            (rising edge-triggered cell FDCE clocked by CLK  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            u_ascon/DATA_OUT_reg[78]/CE
+                            (rising edge-triggered cell FDCE clocked by CLK  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             CLK
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (CLK rise@10.000ns - CLK rise@0.000ns)
+  Data Path Delay:        6.698ns  (logic 2.965ns (44.267%)  route 3.733ns (55.733%))
+  Logic Levels:           14  (CARRY4=11 LUT4=1 LUT6=2)
+  Clock Path Skew:        -0.027ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.953ns = ( 14.953 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.261ns
+    Clock Pessimism Removal (CPR):    0.281ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock CLK rise edge)        0.000     0.000 r  
+    W5                                                0.000     0.000 r  CLK (IN)
+                         net (fo=0)                   0.000     0.000    CLK
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  CLK_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    CLK_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  CLK_IBUF_BUFG_inst/O
+                         net (fo=2444, routed)        1.740     5.261    u_ascon/PERM_INST/CLK_IBUF_BUFG
+    SLICE_X18Y104        FDCE                                         r  u_ascon/PERM_INST/STATE_OUT_reg[317]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X18Y104        FDCE (Prop_fdce_C_Q)         0.419     5.680 r  u_ascon/PERM_INST/STATE_OUT_reg[317]/Q
+                         net (fo=2, routed)           0.828     6.508    u_ascon/PERM_INST/perm_state_out[317]
+    SLICE_X19Y102        LUT6 (Prop_lut6_I0_O)        0.297     6.805 r  u_ascon/PERM_INST/DATA_OUT[127]_i_98/O
+                         net (fo=1, routed)           0.976     7.781    u_ascon/PERM_INST/DATA_OUT[127]_i_98_n_0
+    SLICE_X34Y100        LUT4 (Prop_lut4_I0_O)        0.124     7.905 r  u_ascon/PERM_INST/DATA_OUT[127]_i_90/O
+                         net (fo=1, routed)           0.000     7.905    u_ascon/PERM_INST/DATA_OUT[127]_i_90_n_0
+    SLICE_X34Y100        CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     8.438 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_79/CO[3]
+                         net (fo=1, routed)           0.000     8.438    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_79_n_0
+    SLICE_X34Y101        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.555 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_70/CO[3]
+                         net (fo=1, routed)           0.000     8.555    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_70_n_0
+    SLICE_X34Y102        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.672 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_61/CO[3]
+                         net (fo=1, routed)           0.000     8.672    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_61_n_0
+    SLICE_X34Y103        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.789 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_52/CO[3]
+                         net (fo=1, routed)           0.000     8.789    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_52_n_0
+    SLICE_X34Y104        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.906 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_43/CO[3]
+                         net (fo=1, routed)           0.000     8.906    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_43_n_0
+    SLICE_X34Y105        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.023 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_34/CO[3]
+                         net (fo=1, routed)           0.000     9.023    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_34_n_0
+    SLICE_X34Y106        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.140 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_25/CO[3]
+                         net (fo=1, routed)           0.000     9.140    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_25_n_0
+    SLICE_X34Y107        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.257 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_16/CO[3]
+                         net (fo=1, routed)           0.000     9.257    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_16_n_0
+    SLICE_X34Y108        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.374 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_9/CO[3]
+                         net (fo=1, routed)           0.000     9.374    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_9_n_0
+    SLICE_X34Y109        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.491 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_5/CO[3]
+                         net (fo=1, routed)           0.000     9.491    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_5_n_0
+    SLICE_X34Y110        CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.229     9.720 f  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_3/CO[2]
+                         net (fo=2, routed)           0.820    10.541    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_3_n_1
+    SLICE_X29Y119        LUT6 (Prop_lut6_I0_O)        0.310    10.851 r  u_ascon/PERM_INST/DATA_OUT[127]_i_1/O
+                         net (fo=128, routed)         1.109    11.959    u_ascon/PERM_INST_n_0
+    SLICE_X17Y109        FDCE                                         r  u_ascon/DATA_OUT_reg[78]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock CLK rise edge)       10.000    10.000 r  
+    W5                                                0.000    10.000 r  CLK (IN)
+                         net (fo=0)                   0.000    10.000    CLK
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  CLK_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    CLK_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  CLK_IBUF_BUFG_inst/O
+                         net (fo=2444, routed)        1.612    14.953    u_ascon/CLK_IBUF_BUFG
+    SLICE_X17Y109        FDCE                                         r  u_ascon/DATA_OUT_reg[78]/C
+                         clock pessimism              0.281    15.234    
+                         clock uncertainty           -0.035    15.199    
+    SLICE_X17Y109        FDCE (Setup_fdce_C_CE)      -0.205    14.994    u_ascon/DATA_OUT_reg[78]
+  -------------------------------------------------------------------
+                         required time                         14.994    
+                         arrival time                         -11.959    
+  -------------------------------------------------------------------
+                         slack                                  3.035    
+
+Slack (MET) :             3.035ns  (required time - arrival time)
+  Source:                 u_ascon/PERM_INST/STATE_OUT_reg[317]/C
+                            (rising edge-triggered cell FDCE clocked by CLK  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            u_ascon/DATA_OUT_reg[8]/CE
+                            (rising edge-triggered cell FDCE clocked by CLK  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             CLK
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (CLK rise@10.000ns - CLK rise@0.000ns)
+  Data Path Delay:        6.698ns  (logic 2.965ns (44.267%)  route 3.733ns (55.733%))
+  Logic Levels:           14  (CARRY4=11 LUT4=1 LUT6=2)
+  Clock Path Skew:        -0.027ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.953ns = ( 14.953 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.261ns
+    Clock Pessimism Removal (CPR):    0.281ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock CLK rise edge)        0.000     0.000 r  
+    W5                                                0.000     0.000 r  CLK (IN)
+                         net (fo=0)                   0.000     0.000    CLK
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  CLK_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    CLK_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  CLK_IBUF_BUFG_inst/O
+                         net (fo=2444, routed)        1.740     5.261    u_ascon/PERM_INST/CLK_IBUF_BUFG
+    SLICE_X18Y104        FDCE                                         r  u_ascon/PERM_INST/STATE_OUT_reg[317]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X18Y104        FDCE (Prop_fdce_C_Q)         0.419     5.680 r  u_ascon/PERM_INST/STATE_OUT_reg[317]/Q
+                         net (fo=2, routed)           0.828     6.508    u_ascon/PERM_INST/perm_state_out[317]
+    SLICE_X19Y102        LUT6 (Prop_lut6_I0_O)        0.297     6.805 r  u_ascon/PERM_INST/DATA_OUT[127]_i_98/O
+                         net (fo=1, routed)           0.976     7.781    u_ascon/PERM_INST/DATA_OUT[127]_i_98_n_0
+    SLICE_X34Y100        LUT4 (Prop_lut4_I0_O)        0.124     7.905 r  u_ascon/PERM_INST/DATA_OUT[127]_i_90/O
+                         net (fo=1, routed)           0.000     7.905    u_ascon/PERM_INST/DATA_OUT[127]_i_90_n_0
+    SLICE_X34Y100        CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     8.438 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_79/CO[3]
+                         net (fo=1, routed)           0.000     8.438    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_79_n_0
+    SLICE_X34Y101        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.555 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_70/CO[3]
+                         net (fo=1, routed)           0.000     8.555    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_70_n_0
+    SLICE_X34Y102        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.672 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_61/CO[3]
+                         net (fo=1, routed)           0.000     8.672    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_61_n_0
+    SLICE_X34Y103        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.789 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_52/CO[3]
+                         net (fo=1, routed)           0.000     8.789    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_52_n_0
+    SLICE_X34Y104        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.906 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_43/CO[3]
+                         net (fo=1, routed)           0.000     8.906    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_43_n_0
+    SLICE_X34Y105        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.023 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_34/CO[3]
+                         net (fo=1, routed)           0.000     9.023    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_34_n_0
+    SLICE_X34Y106        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.140 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_25/CO[3]
+                         net (fo=1, routed)           0.000     9.140    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_25_n_0
+    SLICE_X34Y107        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.257 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_16/CO[3]
+                         net (fo=1, routed)           0.000     9.257    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_16_n_0
+    SLICE_X34Y108        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.374 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_9/CO[3]
+                         net (fo=1, routed)           0.000     9.374    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_9_n_0
+    SLICE_X34Y109        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.491 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_5/CO[3]
+                         net (fo=1, routed)           0.000     9.491    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_5_n_0
+    SLICE_X34Y110        CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.229     9.720 f  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_3/CO[2]
+                         net (fo=2, routed)           0.820    10.541    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_3_n_1
+    SLICE_X29Y119        LUT6 (Prop_lut6_I0_O)        0.310    10.851 r  u_ascon/PERM_INST/DATA_OUT[127]_i_1/O
+                         net (fo=128, routed)         1.109    11.959    u_ascon/PERM_INST_n_0
+    SLICE_X17Y109        FDCE                                         r  u_ascon/DATA_OUT_reg[8]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock CLK rise edge)       10.000    10.000 r  
+    W5                                                0.000    10.000 r  CLK (IN)
+                         net (fo=0)                   0.000    10.000    CLK
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  CLK_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    CLK_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  CLK_IBUF_BUFG_inst/O
+                         net (fo=2444, routed)        1.612    14.953    u_ascon/CLK_IBUF_BUFG
+    SLICE_X17Y109        FDCE                                         r  u_ascon/DATA_OUT_reg[8]/C
+                         clock pessimism              0.281    15.234    
+                         clock uncertainty           -0.035    15.199    
+    SLICE_X17Y109        FDCE (Setup_fdce_C_CE)      -0.205    14.994    u_ascon/DATA_OUT_reg[8]
+  -------------------------------------------------------------------
+                         required time                         14.994    
+                         arrival time                         -11.959    
+  -------------------------------------------------------------------
+                         slack                                  3.035    
+
+Slack (MET) :             3.052ns  (required time - arrival time)
+  Source:                 u_ascon/PERM_INST/STATE_OUT_reg[317]/C
+                            (rising edge-triggered cell FDCE clocked by CLK  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            u_ascon/DATA_OUT_reg[110]/CE
+                            (rising edge-triggered cell FDCE clocked by CLK  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             CLK
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (CLK rise@10.000ns - CLK rise@0.000ns)
+  Data Path Delay:        6.678ns  (logic 2.965ns (44.397%)  route 3.713ns (55.603%))
+  Logic Levels:           14  (CARRY4=11 LUT4=1 LUT6=2)
+  Clock Path Skew:        -0.029ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.951ns = ( 14.951 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.261ns
+    Clock Pessimism Removal (CPR):    0.281ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock CLK rise edge)        0.000     0.000 r  
+    W5                                                0.000     0.000 r  CLK (IN)
+                         net (fo=0)                   0.000     0.000    CLK
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  CLK_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    CLK_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  CLK_IBUF_BUFG_inst/O
+                         net (fo=2444, routed)        1.740     5.261    u_ascon/PERM_INST/CLK_IBUF_BUFG
+    SLICE_X18Y104        FDCE                                         r  u_ascon/PERM_INST/STATE_OUT_reg[317]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X18Y104        FDCE (Prop_fdce_C_Q)         0.419     5.680 r  u_ascon/PERM_INST/STATE_OUT_reg[317]/Q
+                         net (fo=2, routed)           0.828     6.508    u_ascon/PERM_INST/perm_state_out[317]
+    SLICE_X19Y102        LUT6 (Prop_lut6_I0_O)        0.297     6.805 r  u_ascon/PERM_INST/DATA_OUT[127]_i_98/O
+                         net (fo=1, routed)           0.976     7.781    u_ascon/PERM_INST/DATA_OUT[127]_i_98_n_0
+    SLICE_X34Y100        LUT4 (Prop_lut4_I0_O)        0.124     7.905 r  u_ascon/PERM_INST/DATA_OUT[127]_i_90/O
+                         net (fo=1, routed)           0.000     7.905    u_ascon/PERM_INST/DATA_OUT[127]_i_90_n_0
+    SLICE_X34Y100        CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     8.438 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_79/CO[3]
+                         net (fo=1, routed)           0.000     8.438    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_79_n_0
+    SLICE_X34Y101        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.555 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_70/CO[3]
+                         net (fo=1, routed)           0.000     8.555    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_70_n_0
+    SLICE_X34Y102        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.672 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_61/CO[3]
+                         net (fo=1, routed)           0.000     8.672    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_61_n_0
+    SLICE_X34Y103        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.789 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_52/CO[3]
+                         net (fo=1, routed)           0.000     8.789    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_52_n_0
+    SLICE_X34Y104        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.906 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_43/CO[3]
+                         net (fo=1, routed)           0.000     8.906    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_43_n_0
+    SLICE_X34Y105        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.023 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_34/CO[3]
+                         net (fo=1, routed)           0.000     9.023    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_34_n_0
+    SLICE_X34Y106        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.140 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_25/CO[3]
+                         net (fo=1, routed)           0.000     9.140    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_25_n_0
+    SLICE_X34Y107        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.257 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_16/CO[3]
+                         net (fo=1, routed)           0.000     9.257    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_16_n_0
+    SLICE_X34Y108        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.374 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_9/CO[3]
+                         net (fo=1, routed)           0.000     9.374    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_9_n_0
+    SLICE_X34Y109        CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.491 r  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_5/CO[3]
+                         net (fo=1, routed)           0.000     9.491    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_5_n_0
+    SLICE_X34Y110        CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.229     9.720 f  u_ascon/PERM_INST/DATA_OUT_reg[127]_i_3/CO[2]
+                         net (fo=2, routed)           0.820    10.541    u_ascon/PERM_INST/DATA_OUT_reg[127]_i_3_n_1
+    SLICE_X29Y119        LUT6 (Prop_lut6_I0_O)        0.310    10.851 r  u_ascon/PERM_INST/DATA_OUT[127]_i_1/O
+                         net (fo=128, routed)         1.089    11.940    u_ascon/PERM_INST_n_0
+    SLICE_X17Y112        FDCE                                         r  u_ascon/DATA_OUT_reg[110]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock CLK rise edge)       10.000    10.000 r  
+    W5                                                0.000    10.000 r  CLK (IN)
+                         net (fo=0)                   0.000    10.000    CLK
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  CLK_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    CLK_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  CLK_IBUF_BUFG_inst/O
+                         net (fo=2444, routed)        1.610    14.951    u_ascon/CLK_IBUF_BUFG
+    SLICE_X17Y112        FDCE                                         r  u_ascon/DATA_OUT_reg[110]/C
+                         clock pessimism              0.281    15.232    
+                         clock uncertainty           -0.035    15.197    
+    SLICE_X17Y112        FDCE (Setup_fdce_C_CE)      -0.205    14.992    u_ascon/DATA_OUT_reg[110]
+  -------------------------------------------------------------------
+                         required time                         14.992    
+                         arrival time                         -11.940    
+  -------------------------------------------------------------------
+                         slack                                  3.052    
+
+
+
+

@@ -9,6 +9,7 @@ import re
 import time
 from pathlib import Path
 from gpiozero import OutputDevice, InputDevice
+from gpiozero.pins.lgpio import LGPIOFactory
 
 ADDR_PINS = [17, 27, 22, 23, 24, 25]
 DATA_IN_PINS = [5, 6, 13, 19, 26, 12, 16, 20]
@@ -19,11 +20,12 @@ DELAY = 0.001
 
 class Bus:
     def __init__(self):
-        self.addr = [OutputDevice(p, initial_value=False) for p in ADDR_PINS]
-        self.din = [OutputDevice(p, initial_value=False) for p in DATA_IN_PINS]
-        self.dout = [InputDevice(p, pull_up=None, active_state=True) for p in DATA_OUT_PINS]
-        self.wr = OutputDevice(TO_WRITE_PIN, initial_value=False)
-        self.rd = OutputDevice(TO_READ_PIN, initial_value=False)
+        self.factory = LGPIOFactory()
+        self.addr = [OutputDevice(p, initial_value=False, pin_factory=self.factory) for p in ADDR_PINS]
+        self.din = [OutputDevice(p, initial_value=False, pin_factory=self.factory) for p in DATA_IN_PINS]
+        self.dout = [InputDevice(p, pull_up=None, active_state=True, pin_factory=self.factory) for p in DATA_OUT_PINS]
+        self.wr = OutputDevice(TO_WRITE_PIN, initial_value=False, pin_factory=self.factory)
+        self.rd = OutputDevice(TO_READ_PIN, initial_value=False, pin_factory=self.factory)
 
     @staticmethod
     def bits(pins, value):
@@ -51,9 +53,6 @@ class Bus:
 
     def read_bytes(self, base, n):
         return bytes(self.read(base+i) for i in range(n))
-
-    def read_u32(self, base):
-        return int.from_bytes(self.read_bytes(base, 4), 'little')
 
     def wait_idle(self, timeout=5.0):
         deadline = time.monotonic() + timeout
@@ -88,32 +87,30 @@ class Bus:
             if n != len(payload):
                 raise RuntimeError(f'Unexpected result length: {n}')
             ciphertext = self.read_bytes(0, n)
-        return ciphertext, status, self.read_u32(54)
+        return ciphertext, status
 
     def encrypt(self, key, nonce, ad, pt):
         self.initialize(key, nonce, bool(ad))
-        command_cycles = [self.read_u32(54)]
         if ad:
             for offset in range(0, len(ad), 16):
                 chunk = ad[offset:offset+16]
-                _, _, cycles = self.block(chunk, True, offset+16 >= len(ad))
-                command_cycles.append(cycles)
+                self.block(chunk, True, offset+16 >= len(ad))
         ct = bytearray()
         # Empty plaintext is represented by one final zero-byte block.
         offsets = range(0, len(pt), 16) if pt else [0]
         for offset in offsets:
             chunk = pt[offset:offset+16]
-            block_ct, status, cycles = self.block(chunk, False, offset+16 >= len(pt))
+            block_ct, status = self.block(chunk, False, offset+16 >= len(pt))
             ct.extend(block_ct)
-            command_cycles.append(cycles)
         if not (status & 0x04):
             raise RuntimeError('TAG not ready after last plaintext block')
         tag = self.read_bytes(16, 16)
-        return bytes(ct), tag, command_cycles, self.read_u32(58)
+        return bytes(ct), tag
 
     def close(self):
         for pin in self.addr + self.din + self.dout + [self.wr, self.rd]:
             pin.close()
+        self.factory.close()
 
 
 def parse_kats(path):
@@ -139,11 +136,11 @@ def main():
     try:
         for case in cases:
             # TOP supports repeated transactions; no manual reset between cases.
-            ct, tag, cycles, total = bus.encrypt(case['Key'], case['Nonce'], case['AD'], case['PT'])
+            ct, tag = bus.encrypt(case['Key'], case['Nonce'], case['AD'], case['PT'])
             expected_ct, expected_tag = case['CT'][:-16], case['CT'][-16:]
             passed = ct == expected_ct and tag == expected_tag
             print(f"Count={case['Count']} AD={len(case['AD'])} PT={len(case['PT'])} "
-                  f"{'PASS' if passed else 'FAIL'} cycles={cycles} total_active={total}")
+                  f"{'PASS' if passed else 'FAIL'}")
             if not passed:
                 print(f'  CT actual  : {ct.hex().upper()}')
                 print(f'  CT expected: {expected_ct.hex().upper()}')
